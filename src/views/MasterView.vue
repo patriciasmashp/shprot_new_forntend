@@ -144,10 +144,11 @@ const masterStyles = computed(() => {
   const style_names = store.getters.master.styles.map(
     (style) => style.style_name
   );
+  console.log(allStyles);
   if (style_names.includes("Все стили")) {
-    console.log(allStyles);
     return allStyles.value.map((style) => style.style_name);
   }
+  return style_names;
 });
 
 async function likeMaster(master: Master, event: PointerEvent) {

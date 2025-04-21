@@ -36,6 +36,7 @@ import IconUsersearch from "@/components/icons/IconUsersearch.vue";
 }
 .menu-item {
   padding-top: 5px;
+  padding-bottom: 10px;
   text-align: center;
 }
 .menu-wrapper{
