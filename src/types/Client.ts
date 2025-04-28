@@ -4,7 +4,7 @@ import type { Master } from "./Master";
 
 export type TFavorite = {
     id: number;
-    masters: Master;
+    masters: Array<Master | string>;
     date: Date
 }
 

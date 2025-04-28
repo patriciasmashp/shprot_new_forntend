@@ -210,7 +210,7 @@ onUnmounted(async () => {
 <style scoped>
 .master-avatar-container img {
   height: 50px;
-  width: auto;
+  width: 100%;
 }
 .card {
   background-color: unset;

@@ -10,6 +10,7 @@ import type { IRequest, TypeOfRequest } from "@/types/Request";
 import type { UserInteract } from "@/types/UserInteract";
 import type { SignedClient } from "@/utils/classes/SignedClient";
 import type { Report } from "@/types/Report";
+import type City from "@/types/City";
 
 
 export async function getCities() {
@@ -50,6 +51,7 @@ export async function getClient(client_id: number) {
 }
 
 export async function updateClient(documentId: string, client_data: SignedClient) {
+    const city: City = client_data.client.city as City
     const client: IClient = {
         favorites_by_date: client_data.getFavorites().map((fav: TFavorite) => {
             const masters: Array<string> = fav.masters.map((master: Master) => master.documentId)
@@ -59,7 +61,7 @@ export async function updateClient(documentId: string, client_data: SignedClient
             }
         }),
 
-        city: client_data.client.city.documentId,
+        city: city.documentId,
         client_id: client_data.client.client_id
     }
 

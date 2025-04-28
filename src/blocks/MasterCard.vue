@@ -50,6 +50,7 @@ async function likeMaster(master: Master, event: PointerEvent) {
 </script>
 
 <template>
+
   <div class="card">
     <div class="card-body w-100" style="padding: 4px">
       <SwiperItem
@@ -59,7 +60,7 @@ async function likeMaster(master: Master, event: PointerEvent) {
       />
 
       <div class="d-flex mt-2 pe-3 align-items-center">
-        <div class="col-3 text-center pe-0 avatar-container">
+        <div class="col-2 text-center me-3 pe-0 avatar-container">
           <img
             :src="imageParse(props.master.profile_image?.formats.thumbnail.url)"
             class="rounded-circle"
@@ -124,7 +125,7 @@ async function likeMaster(master: Master, event: PointerEvent) {
 <style scoped>
 .avatar-container img {
   height: 48px;
-  width: auto;
+  width: 100%;
 }
 .card {
   background-color: unset;

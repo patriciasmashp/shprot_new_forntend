@@ -84,6 +84,7 @@ onUnmounted(() => {
     <MenuHeader />
     <div class="d-flex justify-content-center masters__container">
       <div class="w-100">
+        
         <MasterCard class="my-2" :master="master" v-for="master in masters" />
       </div>
     </div>
