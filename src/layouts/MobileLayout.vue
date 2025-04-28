@@ -5,7 +5,6 @@ import { useStore } from "vuex";
 const store = useStore();
 store.dispatch("FETCH_CLIENT");
 const client = computed(() => {
-  console.log(store.state.client);
   return store.state.client;
 });
 
@@ -47,7 +46,7 @@ footer {
   padding-right: 20px;
   padding-top: 56px;
   min-width: 376px;
-  padding-bottom: 48px;
+  padding-bottom: 70px;
   width: 100%;
   max-width: 376px;
   z-index: 1;

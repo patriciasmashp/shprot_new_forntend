@@ -102,13 +102,34 @@
     </div>
   </div>
   <DownModal :visible="report_visible" @close="report_visible = false">
-    <ReportBlock :master="master" @created="report_visible = false">
+    <ReportBlock :master="master" @created="afterReport">
 
     </ReportBlock>
   </DownModal>
   <DownModal :visible="request_visible" @close="request_visible = false">
-    <RequestBlock :master="master" @created="request_visible = false"></RequestBlock>
+    <RequestBlock :master="master" @created="afterREquest"></RequestBlock>
   </DownModal>
+
+  <ModalItem v-model="modalSuccessReportVisible">
+    <div class="text-center">
+      <h3 class="text-white">Жалоба отправлена</h3>
+    </div>
+    <div class="buttons mt-4">
+      <ButtonItem :type="'main'" @click="modalSuccessReportVisible = false">
+        Закрыть
+      </ButtonItem>
+    </div>
+  </ModalItem>
+  <ModalItem v-model="modalSuccessRequestVisible">
+    <div class="text-center">
+      <h3 class="text-white">Заявка отправлена</h3>
+    </div>
+    <div class="buttons mt-4">
+      <ButtonItem :type="'main'" @click="modalSuccessRequestVisible = false">
+        Закрыть
+      </ButtonItem>
+    </div>
+  </ModalItem>
 </template>
 <script setup lang="ts">
 import ButtonItem from "@/components/ButtonItem.vue";
@@ -127,9 +148,12 @@ import { imageParse } from "@/utils/functions";
 import RequestBlock from "@/blocks/RequestBlock.vue";
 import ReportBlock from "@/blocks/ReportBlock.vue";
 import type { UserInteract } from "@/types/UserInteract";
+import ModalItem from "@/components/ModalItem.vue";
 
 const report_visible = ref(false);
 const request_visible = ref(false);
+const modalSuccessReportVisible = ref(false);
+const modalSuccessRequestVisible = ref(false);
 const store = useStore();
 store.dispatch("FETCH_MASTER", router.currentRoute.value.params.id);
 store.dispatch("FETCH_STYLES");
@@ -139,12 +163,20 @@ const client = computed<UserInteract>(() => store.getters.client);
 const allStyles = computed(() => store.getters.styles);
 const master = computed<Master>(() => store.getters.master);
 
+const afterReport = () => {
+  report_visible.value = false
+  modalSuccessReportVisible.value = true;
+};
+const afterREquest = () => {
+  request_visible.value = false
+  modalSuccessRequestVisible.value = true;
+};
+
 const masterStyles = computed(() => {
   // if (!master.value) return [];
   const style_names = store.getters.master.styles.map(
     (style) => style.style_name
   );
-  console.log(allStyles);
   if (style_names.includes("Все стили")) {
     return allStyles.value.map((style) => style.style_name);
   }

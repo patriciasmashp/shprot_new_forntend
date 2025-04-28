@@ -30,7 +30,7 @@ export class SignedClient extends UserInteract {
     }
 
     get city(): City {
-        return this.client.city
+        return this.client.city;
     }
 
     async shareMaster(master: Master): Promise<void> {

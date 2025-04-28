@@ -18,13 +18,18 @@ export const master = {
         clearMaster(state) {
             state.master = null
         },
+        clearMasters(state){
+            state.masters = []
+        },
         likeMaster(state, master_documentId: string) {
             const isHomePage= state.masters.find((master: Master) => master.documentId === master_documentId)
-            console.log(master_documentId);
+            console.log(isHomePage, '123 ');
             
             if (isHomePage) {
                 state.masters.find((master: Master) => master.documentId === master_documentId).likes++;
+
             } else {
+                
                 state.master.likes++;
             }
         },
@@ -54,6 +59,9 @@ export const master = {
         },
         RESET_MASTER(context) {
             context.commit('clearMaster')
+        },
+        CLEAR_MASTERS(context) {
+            context.commit('clearMasters')
         }
     },
     getters: {

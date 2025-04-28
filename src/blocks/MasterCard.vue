@@ -8,7 +8,7 @@ import HeartFilled from "@/components/icons/HeartFilled.vue";
 import router from "@/router";
 import type { Master } from "@/types/Master";
 import { baseUrl } from "@/api/routes";
-import { computed, ref } from "vue";
+import { computed, ref, useTemplateRef } from "vue";
 import type { IStrapiImage } from "@/types/IStrapiResponse";
 import { store } from "@/store";
 import { copyToClipboard, createDeepLink, imageParse } from "@/utils/functions";
@@ -27,6 +27,14 @@ const getImages = computed(() => {
   const photos: Array<IStrapiImage> = props.master.photos;
   return photos.map<string>((el) => el.url);
 });
+const animateHeart = (target: HTMLElement) => {
+  const svg = target.querySelector("svg")
+  if(!svg) {
+    target.parentElement?.classList.add("pulse");
+  }
+  else svg.classList.add("pulse");
+  
+}
 async function likeMaster(master: Master, event: PointerEvent) {
   const toDay = new Date().toISOString().split("T")[0];
   var target: HTMLElement = event.target as HTMLElement;
@@ -34,8 +42,9 @@ async function likeMaster(master: Master, event: PointerEvent) {
     master: master,
     date: toDay,
   });
+  
+  animateHeart(target);
 
-  target.classList.add("pulse");
 }
 
 </script>
@@ -99,7 +108,7 @@ async function likeMaster(master: Master, event: PointerEvent) {
         </div>
         <div class="card__button">
           <ButtonItem @click="(event) => likeMaster(master, event)"
-            ><HeartFilled
+            ><HeartFilled ref="heartIco"
           /></ButtonItem>
         </div>
       </div>

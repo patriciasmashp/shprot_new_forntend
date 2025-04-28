@@ -10,5 +10,8 @@ export default {
     getClients: baseUrl + "/api/clients",
     getRequests: baseUrl + "/api/requests",
     getReports: baseUrl + "/api/reports",
-    media: baseUrl + "/api/upload"
+    media: baseUrl + "/api/upload",
+
+    uploadVideoWebApp: baseUrl + "/api/telegram/handleFile",
+    getUploadStatus: baseUrl + "/api/telegram/fileUploadStatus"
 }

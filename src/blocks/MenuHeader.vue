@@ -8,18 +8,33 @@ import { computed, ref, watch } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
-store.dispatch("FETCH_CITIES")
-const filterActive = computed(() =>  store.getters.filter ? true : false);
-const cities = computed(() =>  store.getters.cities.map(city => city.name));
-const client = computed(() =>  store.getters.client);
+store.dispatch("FETCH_CITIES");
+const filterActive = computed(() => store.getters.filter.isActive);
+const cities = computed(() => store.getters.cities.map((city) => city.name));
+const client = computed(() => store.getters.client);
 
-console.log(client.value);
+// const selectedCitiy = ref(client.value ? client.value.city.name : cities.value[0])
 
-const selectedCitiy = ref(client.value ? client.value.city.name : cities.value[0])
+const selectedCitiy = computed({
+  get() {
+    if (store.getters.filter.isActive && store.getters.filter.cityName) {
+      return store.getters.filter.cityName;
+    } else if (client.value) {
+      return client.value.city.name;
+    } else {
+      return cities.value[0];
+    }
+  },
+  set(v){
+    store.getters.filter.cityName = v
+    store.getters.filter.build()
+    console.log(v)
+  }
+});
 
-watch(selectedCitiy, (newValue) => {
-  store.dispatch("SET_CITY", newValue)  
-})
+// watch(selectedCitiy, (newValue) => {
+//   store.dispatch("SET_CITY", newValue);
+// });
 </script>
 
 <template>
@@ -27,8 +42,18 @@ watch(selectedCitiy, (newValue) => {
     <div class="col-7">
       <SelectItem v-model="selectedCitiy" :data="cities" />
     </div>
-    <div class="col-2 text-center link" @click="router.push({name:'favorites'})"><HeartCircle /></div>
-    <div class="col-2 text-center link" @click="router.push({name:'filters'})"><SettingsCircle v-if="filterActive"/><SettingAnactive v-else/></div>
+    <div
+      class="col-2 text-center link"
+      @click="router.push({ name: 'favorites' })"
+    >
+      <HeartCircle />
+    </div>
+    <div
+      class="col-2 text-center link"
+      @click="router.push({ name: 'filters' })"
+    >
+      <SettingsCircle v-if="filterActive" /><SettingAnactive v-else />
+    </div>
   </div>
 </template>
 <style scoped>

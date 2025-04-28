@@ -2,28 +2,76 @@
 import IconHome from "@/components/icons/IconHome.vue";
 import IconJudge from "@/components//icons/IconJudge.vue";
 import IconUsersearch from "@/components/icons/IconUsersearch.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 </script>
 
 <template>
   <div class="menu-wrapper">
     <div class="d-flex">
-      <div class="menu-item col-4">
-        <IconHome class="text-secondary ico"/>
+      <div class="menu-item col-4" @click="router.push({ name: 'feed' })">
+        <IconHome
+          class="ico"
+          :class="[
+            router.currentRoute.value.name ==
+            router.resolve({ name: 'feed' }).name
+              ? 'text-purple'
+              : 'text-secondary',
+          ]"
+        />
         <div>
-          <span>Лента</span>
+          <span
+            :class="[
+              router.currentRoute.value.name ==
+              router.resolve({ name: 'feed' }).name
+                ? 'text-purple'
+                : 'text-secondary',
+            ]"
+            >Лента</span
+          >
         </div>
       </div>
-      <div class="menu-item col-4">
+      <div class="menu-item col-4" @click="router.push({ name: 'home' })">
         <!-- <IconUsersearch  class="text-secondary"/> -->
-        <IconUsersearch  class="text-purple"/>
+        <IconUsersearch
+          :class="[
+            router.currentRoute.value.name ==
+            router.resolve({ name: 'home' }).name
+              ? 'text-purple'
+              : 'text-secondary',
+          ]"
+        />
         <div>
-          <span class="text-purple">Мастера</span>
+          <span
+            :class="[
+              router.currentRoute.value.name ==
+              router.resolve({ name: 'home' }).name
+                ? 'text-purple'
+                : 'text-secondary',
+            ]"
+            >Мастера</span
+          >
         </div>
       </div>
-      <div class="menu-item col-4">
-        <IconJudge class="text-secondary"/>
+      <div class="menu-item col-4" @click="router.push({ name: 'auction' })">
+        <IconJudge
+          :class="[
+            router.currentRoute.value.name ==
+            router.resolve({ name: 'auction' }).name
+              ? 'text-purple'
+              : 'text-secondary',
+          ]"
+        />
         <div>
-          <span>Аукцион</span>
+          <span
+            :class="[
+              router.currentRoute.value.name ==
+              router.resolve({ name: 'auction' }).name
+                ? 'text-purple'
+                : 'text-secondary',
+            ]"
+            >Аукцион</span
+          >
         </div>
       </div>
     </div>
@@ -31,7 +79,7 @@ import IconUsersearch from "@/components/icons/IconUsersearch.vue";
 </template>
 
 <style scoped>
-.ico{
+.ico {
   padding-bottom: 4px;
 }
 .menu-item {
@@ -39,8 +87,8 @@ import IconUsersearch from "@/components/icons/IconUsersearch.vue";
   padding-bottom: 10px;
   text-align: center;
 }
-.menu-wrapper{
-    background-color: black;
-    color: white;
+.menu-wrapper {
+  background-color: black;
+  color: white;
 }
 </style>

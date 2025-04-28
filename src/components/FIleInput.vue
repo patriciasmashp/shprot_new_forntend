@@ -4,7 +4,7 @@
     :style="{ backgroundImage: image_preview }"
     :class="{ 'input_wrapper-uploaded': image_preview }"
   >
-    <input @change="uploadFile" type="file" id="input__file-input" />
+    <input @change="uploadFile" type="file" :accept="mimeType" id="input__file-input" />
     <label for="input__file-input">
       <GallaryAdd v-if="!image_preview" />
       <div v-else class="input__open-img-container">
@@ -18,6 +18,8 @@
 import { ref } from "vue";
 import GallaryAdd from "./icons/GallaryAdd.vue";
 import OkCircled from "./icons/OkCircled.vue";
+
+const { mimeType = 'image/*' } = defineProps<{ mimeType?: string }>()
 const emit = defineEmits(['change'])
 const image_preview = ref("");
 function uploadFile(event: Event) {

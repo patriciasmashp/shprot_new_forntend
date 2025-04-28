@@ -61,7 +61,6 @@ export const store = createStore({
         client_id = window.Telegram.WebApp.initDataUnsafe.user.id as number
       }
       let client = null
-      console.log(client_id);
       
       if (!client_id) {
         client = new UnsignedClient()
@@ -93,7 +92,7 @@ export const store = createStore({
         favToday.masters.push(data.master);
       }
       context.commit('setClient', client);
-      context.dispatch('likeMaster', data.master);
+      context.dispatch('likeMaster', data.master);      
 
       await updateClient(client.client.documentId, client);
 

@@ -8,7 +8,7 @@ import { UserInteract } from "@/types/UserInteract";
 export class UnsignedClient extends UserInteract {
 
     private _client: IClient | any;
-    private _city: City;
+    private _city?: City;
 
     async init() {
         const cities = await getCities()

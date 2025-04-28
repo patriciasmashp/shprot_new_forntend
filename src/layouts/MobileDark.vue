@@ -43,7 +43,7 @@ footer {
   padding-right: 20px;
   padding-top: 56px;
   min-width: 376px;
-  padding-bottom: 48px;
+  padding-bottom: 70px;
   position: relative;
   width: 100%;
   max-width: 375px;

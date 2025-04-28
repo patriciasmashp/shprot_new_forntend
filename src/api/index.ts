@@ -106,7 +106,7 @@ export async function makeReport(master: Master, client: IClient, text: str, fil
     const resp = await axios.post(routes.getReports + "?" + params, data)
     if (file) {
         const fileData = {
-            
+
             files: file,
             refId: resp.data.data.id,
             ref: "api::report.report",
@@ -116,4 +116,58 @@ export async function makeReport(master: Master, client: IClient, text: str, fil
         await axios.postForm(routes.media, fileData)
     }
     return resp.data.data[0]
+}
+
+type Progress = {
+    progress: {
+        loaded: number,
+        total?: number,
+        success?: boolean
+    }
+}
+
+export async function uploadVideoToStrapi(file: File, callback: (progress: number) => boolean) {
+    const fd = new FormData()
+    fd.append('file', file)
+
+    let interval = setInterval(() => {
+        setTimeout(async () => {
+            var progress = subscribe();
+
+            const final = callback(await progress)
+            if (final) {
+                clearInterval(interval)
+            }
+
+        }, 300);
+    }, 400)
+
+    const res = await axios.postForm(routes.uploadVideoWebApp, fd)
+
+
+
+
+    if (res.data.success) {
+        return res.data.key
+    }
+}
+
+function subscribe() {
+
+    const data = axios.get(routes.getUploadStatus)
+        .then((r) => {
+            if(r.data.progress.total != undefined){
+                console.log(r.data);
+                return r.data.progress.loaded / r.data.progress.total * 100
+            }
+            else{
+                return 1
+            }
+
+        })
+        .catch((r) => {
+            console.warn("Network failure. Trying again...");
+            return 100
+        })
+    return data
 }

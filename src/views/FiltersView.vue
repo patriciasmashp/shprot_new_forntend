@@ -1,40 +1,41 @@
 <script setup lang="ts">
+import CityFilterRadio from "@/blocks/CityFilterRadio.vue";
 import ButtonItem from "@/components/ButtonItem.vue";
 import CheckItem from "@/components/CheckItem.vue";
 import DividerItem from "@/components/DividerItem.vue";
 import SearchIcon from "@/components/icons/SearchIcon.vue";
 import InputItem from "@/components/InputItem.vue";
+import RadioItem from "@/components/RadioItem.vue";
 import router from "@/router";
+import type { AbstractFilter } from "@/types/AbstractFilter";
+import type City from "@/types/City";
+import type Style from "@/types/Style";
 import { computed, ref } from "vue";
-import type { Ref } from "vue";
+import type { ComputedRef, Ref } from "vue";
 import { useStore } from "vuex";
 
-// const cities = [
-//   "Ершово",
-//   "Екатеринбург",
-//   "Краснодар",
-//   "Тюмень",
-//   "Пермь",
-//   "Новосибирск",
-//   "Казань",
-// ];
 const store = useStore();
 store.dispatch("FETCH_CITIES");
 store.dispatch("FETCH_STYLES");
 
 const cities = computed(() => {
   if (!store.getters.cities) return [];
-  return store.getters.cities.map((el) => el.name);
+  return store.getters.cities.map((el: City) => el.name);
 });
 const styles = computed(() => {
   if (!store.getters.styles) return [];
-  return store.getters.styles.map((el) => el.style_name);
+  return store.getters.styles.map((el: Style) => el.style_name);
+});
+
+const filter = computed<AbstractFilter>(() => {
+  return store.getters.filter;
 });
 
 const searchedCities: Ref<Array<string>> = ref([]);
 
-const selectedCities: Ref<Array<string>> = ref([]);
-const selectedStyles: Ref<Array<string>> = ref([]);
+const selectedCity: Ref<string | null> = ref(filter.value.cityName);
+
+const selectedStyles: Ref<Array<string>> = ref(filter.value.styleNames);
 const filtersVisible = ref(true);
 
 function startSearch() {
@@ -45,26 +46,17 @@ function endSearch() {
 }
 function search(e: InputEvent) {
   const inputValue = (e.target as HTMLInputElement).value;
-  searchedCities.value = cities.filter((el) => el.startsWith(inputValue));
+  searchedCities.value = cities.value.filter((el: string) => el.startsWith(inputValue));
 }
 function clearFilter() {
-  selectedCities.value = [];
-  selectedStyles.value = [];
-  searchedCities.value = [];
-  filtersVisible.value = true;
+  filter.value.clear()
+  router.push({ name: "home"});
 }
 function applyFilter() {
-  const filter = {};
-
-  store.dispatch("SET_FILTER", {
-    city: {
-      name: { $in: selectedCities.value },
-    },
-    styles: {
-      style_name: { $in: selectedStyles.value },
-    },
-  });
-  router.push({ name: "home" });
+  filter.value.cityName = selectedCity.value;
+  filter.value.styleNames = selectedStyles.value;
+  
+  router.push({ name: "home", query: {filter: filter.value.build()} });
 }
 </script>
 
@@ -103,17 +95,17 @@ function applyFilter() {
     />
   </div>
   <div class="checboxes" v-show="!filtersVisible && searchedCities">
-    <CheckItem
+    <CityFilterRadio
       @click.passive="endSearch()"
       :data="searchedCities"
-      v-model="selectedCities"
+      v-model="selectedCity"
     />
   </div>
 
   <Transition>
     <div class="filters-container" v-show="filtersVisible">
       <div class="filters-city my-4">
-        <CheckItem :data="cities" v-model="selectedCities" />
+        <CityFilterRadio :data="cities" v-model="selectedCity" />
       </div>
       <DividerItem style="opacity: 10%" />
       <div class="filters-styles">

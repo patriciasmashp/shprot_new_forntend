@@ -17,6 +17,7 @@
     @click="report"
     >Отправить</ButtonItem
   >
+
 </template>
 <script setup lang="ts">
 import ButtonItem from "@/components/ButtonItem.vue";
@@ -33,6 +34,7 @@ const props = defineProps<{
 const store = useStore();
 const emit = defineEmits(["created"]);
 
+const modalSuccessVisible = ref(false);
 const text = ref("");
 const file = ref<File>();
 
@@ -42,7 +44,9 @@ async function report() {
 
   if (file.value) client.value.report(props.master, text.value, file.value);
   else client.value.report(props.master, text.value, null);
-
+  modalSuccessVisible.value = true;
+  console.log(modalSuccessVisible);
+  
   emit("created");
   text.value = ""
   file.value = undefined

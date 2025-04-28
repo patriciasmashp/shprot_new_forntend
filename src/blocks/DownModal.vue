@@ -4,6 +4,11 @@
     class="down-modal__container"
     @click="withinBounadiresClick"
   >
+    <div class="close-button ms-3">
+      <ButtonItem @click="emit('close')">
+        <ArrowLeft></ArrowLeft>
+      </ButtonItem>
+    </div>
     <Transition name="fade">
       <div
         ref="down-modal__window"
@@ -30,6 +35,8 @@
   </div>
 </template>
 <script setup lang="ts">
+import ButtonItem from "@/components/ButtonItem.vue";
+import ArrowLeft from "@/components/icons/ArrowLeft.vue";
 import { ref, useTemplateRef, watch } from "vue";
 
 const emit = defineEmits(["close"]);
@@ -51,16 +58,15 @@ function withinBounadiresClick(e: MouseEvent) {
   const withinBoundaries = e.composedPath().includes(div);
 
   if (!withinBoundaries) {
-    console.log("Asd");
-    emit("close"); // скрываем элемент т к клик был за его пределами
+    emit("close");
   }
 }
 
-const onMouseDown = (e) => {
-  startPos.value.y = e.touches ? e.touches[0].clientY : e.clientY;
+const onMouseDown = (e: MouseEvent | TouchEvent) => {
+  startPos.value.y = e instanceof TouchEvent ? e.touches[0].clientY : e.clientY;
 
-  const onMove = (e) => {
-    const currentY = e.touches ? e.touches[0].clientY : e.clientY;
+  const onMove = (e: MouseEvent | TouchEvent) => {
+    const currentY = e instanceof TouchEvent ? e.touches[0].clientY : e.clientY;
     const deltaY = currentY - startPos.value.y;
 
     if (deltaY > 0) {
@@ -110,10 +116,16 @@ const onMouseDown = (e) => {
 .v-leave-to {
   opacity: 0;
 }
+
+.close-button {
+  position: fixed;
+  top: 15%;
+  z-index: 200;
+}
 .down-modal__container {
   position: fixed;
   backdrop-filter: blur(25px);
-  top: 45%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   overflow: hidden;
