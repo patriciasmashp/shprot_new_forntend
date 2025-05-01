@@ -30,8 +30,8 @@ main {
   align-items: center;
 }
 .menu {
-  min-width: 376px;
-  max-width: 450px;
+  min-width: var(--window-width);
+  max-width: var(--window-width);
 }
 footer {
   position: fixed;
@@ -44,11 +44,11 @@ footer {
 .main-container {
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 56px;
-  min-width: 376px;
+  padding-top: 20px;
+  max-width: var(--window-width);
   padding-bottom: 70px;
   width: 100%;
-  max-width: 376px;
+  max-width: var(--window-width);
   z-index: 1;
 }
 .elips__blue {

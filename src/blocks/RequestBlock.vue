@@ -27,6 +27,16 @@
       >Отправить</ButtonItem
     >
   </div>
+  <ModalItem v-model="modalSuccessRequestVisible">
+    <div class="text-center">
+      <h3 class="text-white">Заявка отправлена</h3>
+    </div>
+    <div class="buttons mt-4">
+      <ButtonItem :type="'main'" @click="created">
+        Закрыть
+      </ButtonItem>
+    </div>
+  </ModalItem>
 </template>
 
 <script setup lang="ts">
@@ -35,6 +45,7 @@ import CallingIcon from "@/components/icons/CallingIcon.vue";
 import TelegramIcon from "@/components/icons/TelegramIcon.vue";
 import WhatsUp from "@/components/icons/WhatsUp.vue";
 import InputPhone from "@/components/InputPhone.vue";
+import ModalItem from "@/components/ModalItem.vue";
 import RadioItem from "@/components/RadioItem.vue";
 import type { Master } from "@/types/Master";
 import { TypeOfRequest } from "@/types/Request";
@@ -45,7 +56,7 @@ import { useStore } from "vuex";
 const props = defineProps<{
   master: Master;
 }>();
-
+const modalSuccessRequestVisible = ref<boolean>(false);
 const store = useStore();
 const emit = defineEmits(["created"]);
 const connectTypes = {
@@ -56,11 +67,15 @@ const connectTypes = {
 const phoneToRequest = ref("");
 const typeOfReq = ref(TypeOfRequest.phone);
 const client = computed<UserInteract>(() => store.getters.client);
+const created = () =>{
+  modalSuccessRequestVisible.value = false
+  emit("created");
+}
 async function request() {
   if (!/^\+7\(\d{3}\)\d{3}-\d{2}-\d{2}$/.test(phoneToRequest.value)) return;
 
   client.value.request(props.master, typeOfReq.value, phoneToRequest.value);
-
-  emit("created");
+  modalSuccessRequestVisible.value = true
+  // emit("created");
 }
 </script>

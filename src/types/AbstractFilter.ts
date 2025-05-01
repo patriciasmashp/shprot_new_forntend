@@ -13,4 +13,6 @@ export abstract class AbstractFilter {
     get filter() {
         return this._filter;
     }
+    abstract save(): void
+    abstract getFromStorage(): IFilterData
 }

@@ -9,6 +9,7 @@ import FeedView from '@/views/FeedView.vue'
 import UploadForm from '@/views/UploadForm.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+
   routes: [
     {
       path: '/',
@@ -17,6 +18,7 @@ const router = createRouter({
       props: {
         filter: true
       },
+      
       meta: {}
     },
     {

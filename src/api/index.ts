@@ -17,6 +17,17 @@ export async function getCities() {
     const resp = await axios.get(routes.getCities)
     return resp.data.data
 }
+export async function getCityByName(name: string) {
+    const params = stringify({
+        filters: {
+            name: {
+                $eq: name
+            }
+        }
+    })
+    const resp = await axios.get(routes.getCities + "?" + params)
+    return resp.data.data
+}
 export async function getStyles() {
     const params = stringify({
         pagination: {
@@ -36,10 +47,10 @@ export async function getClient(client_id: number) {
 
         populate: [
             'favorites_by_date.masters',
-            'city',
             'favorites_by_date.masters.profile_image',
             'favorites_by_date.masters.photos',
-            'favorites_by_date.masters.city'
+            'favorites_by_date.masters.city',
+            'city'
         ]
 
     },
@@ -51,8 +62,7 @@ export async function getClient(client_id: number) {
 }
 
 export async function updateClient(documentId: string, client_data: SignedClient) {
-    const city: City = client_data.client.city as City
-    const client: IClient = {
+    const client = {
         favorites_by_date: client_data.getFavorites().map((fav: TFavorite) => {
             const masters: Array<string> = fav.masters.map((master: Master) => master.documentId)
             return {
@@ -60,8 +70,7 @@ export async function updateClient(documentId: string, client_data: SignedClient
                 masters: [... new Set(masters)]
             }
         }),
-
-        city: city.documentId,
+        city: client_data.client.city.documentId,
         client_id: client_data.client.client_id
     }
 
@@ -69,6 +78,8 @@ export async function updateClient(documentId: string, client_data: SignedClient
         data: client
     }
     const resp = await axios.put(routes.getClients + "/" + documentId, data)
+    console.log(resp);
+    
     return resp.data.data[0]
 }
 
@@ -93,7 +104,7 @@ export async function makeRequest(master: Master, client: IClient, type: TypeOfR
 export async function makeReport(master: Master, client: IClient, text: str, file: File | null) {
 
     const params = stringify({
-        populate: ["master", "client"]
+        populate: ["master", "client", "files"]
     })
 
     const report: Report = {
@@ -158,11 +169,11 @@ function subscribe() {
 
     const data = axios.get(routes.getUploadStatus)
         .then((r) => {
-            if(r.data.progress.total != undefined){
+            if (r.data.progress.total != undefined) {
                 console.log(r.data);
                 return r.data.progress.loaded / r.data.progress.total * 100
             }
-            else{
+            else {
                 return 1
             }
 

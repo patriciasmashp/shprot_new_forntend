@@ -5,6 +5,7 @@ import MasterCard from "@/blocks/MasterCard.vue";
 import MenuHeader from "@/blocks/MenuHeader.vue";
 import RequestBlock from "@/blocks/RequestBlock.vue";
 import type { AbstractFilter } from "@/types/AbstractFilter";
+import { DEFAULT_CITY_NAME } from "@/utils/consts";
 import { parse } from "qs";
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
@@ -65,7 +66,7 @@ watch(
 onMounted(async () => {
   const city = store.getters.city;
   const strapiData = await store.dispatch("FETCH_MASTERS", {
-    city: city ? city : client.value.city.name,
+    city: city ? city : DEFAULT_CITY_NAME,
     filters: parse(route.query.filter),
   });
 

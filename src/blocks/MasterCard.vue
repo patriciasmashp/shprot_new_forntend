@@ -24,6 +24,7 @@ const props = defineProps<Props>();
 const requestVisible = ref<boolean>(false);
 const getImages = computed(() => {
   if (!props.master.photos) return [];
+  
   const photos: Array<IStrapiImage> = props.master.photos;
   return photos.map<string>((el) => el.url);
 });

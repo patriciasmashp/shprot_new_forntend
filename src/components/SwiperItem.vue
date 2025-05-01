@@ -8,7 +8,7 @@
         :data-hash="generateRandomString(5)"
         v-for="imageUrl in props.images"
       >
-        <img :src="baseUrl + imageUrl" class="w-100" alt="" srcset="" />
+        <img :src="baseUrl + imageUrl" class="" alt="" srcset="" />
       </div>
     </div>
 

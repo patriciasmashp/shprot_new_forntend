@@ -17,11 +17,22 @@
     @click="report"
     >Отправить</ButtonItem
   >
-
+  
+  <ModalItem v-model="modalSuccessReportVisible">
+    <div class="text-center">
+      <h3 class="text-white">Жалоба отправлена</h3>
+    </div>
+    <div class="buttons mt-4">
+      <ButtonItem :type="'main'" @click="created">
+        Закрыть
+      </ButtonItem>
+    </div>
+  </ModalItem>
 </template>
 <script setup lang="ts">
 import ButtonItem from "@/components/ButtonItem.vue";
 import FIleInput from "@/components/FIleInput.vue";
+import ModalItem from "@/components/ModalItem.vue";
 import TextArea from "@/components/TextArea.vue";
 import type { Master } from "@/types/Master";
 import type { UserInteract } from "@/types/UserInteract";
@@ -34,7 +45,12 @@ const props = defineProps<{
 const store = useStore();
 const emit = defineEmits(["created"]);
 
-const modalSuccessVisible = ref(false);
+const modalSuccessReportVisible = ref(false);
+const created = () =>{
+  modalSuccessReportVisible.value = false
+  emit("created");
+}
+
 const text = ref("");
 const file = ref<File>();
 
@@ -44,10 +60,8 @@ async function report() {
 
   if (file.value) client.value.report(props.master, text.value, file.value);
   else client.value.report(props.master, text.value, null);
-  modalSuccessVisible.value = true;
-  console.log(modalSuccessVisible);
+  modalSuccessReportVisible.value = true;
   
-  emit("created");
   text.value = ""
   file.value = undefined
 }

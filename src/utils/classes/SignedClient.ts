@@ -1,10 +1,12 @@
-import { makeReport, makeRequest } from "@/api";
+import { makeReport, makeRequest, updateClient } from "@/api";
 import type City from "@/types/City";
 import type { IClient, TFavorite } from "@/types/Client";
 import type { Master } from "@/types/Master";
 import type { TypeOfRequest } from "@/types/Request";
 import { UserInteract } from "@/types/UserInteract";
-import { createDeepLink } from "../functions";
+import { copyToClipboard, createDeepLink } from "../functions";
+
+declare const window: any
 
 export class SignedClient extends UserInteract {
 
@@ -29,12 +31,20 @@ export class SignedClient extends UserInteract {
         await makeReport(master, this.client, text, file)
     }
 
-    get city(): City {
-        return this.client.city;
+    get city(): City{
+        return this.client.city
     }
 
     async shareMaster(master: Master): Promise<void> {
-        await navigator.clipboard.writeText(createDeepLink(master.documentId))
+        await copyToClipboard(createDeepLink(master.documentId))
+        // await navigator.clipboard.writeText()
         window.Telegram.WebApp.showAlert('Ссылка скопирована в буфер обмена')
+    }
+
+    async save(): Promise<boolean> {
+        const res = await updateClient(this.client.documentId, this)
+        console.log(res);
+        
+        return true
     }
 }

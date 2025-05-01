@@ -10,6 +10,6 @@ export type TFavorite = {
 
 export interface IClient extends IStrapiData{
     client_id: number;
+    city: City;
     favorites_by_date: Array<TFavorite>;
-    city: City | string;
 }

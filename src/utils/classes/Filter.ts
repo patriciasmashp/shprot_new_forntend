@@ -1,7 +1,11 @@
+
 import { AbstractFilter } from "@/types/AbstractFilter";
 import type IFilterData from "@/types/IFilterData";
-import { stringify } from 'qs';
+import { stringify, parse } from 'qs';
+import { useCloudStorage } from 'vue-tg'
 
+const cloudStorage = useCloudStorage()
+declare const window: any;
 
 export default class Filter extends AbstractFilter {
     private static instance: Filter;
@@ -36,6 +40,7 @@ export default class Filter extends AbstractFilter {
         }
         this._filter = filter;
         this.isActive = true;
+        this.save()
         return stringify(filter);
     }
     clear() {
@@ -43,5 +48,13 @@ export default class Filter extends AbstractFilter {
         this.styleNames = [];
         this._filter = null;
         this.isActive = false;
+    }
+    save() {
+            localStorage.setItem("filter", stringify(this));
+    }
+    getFromStorage(): IFilterData {
+            const filter = localStorage.getItem("filter");
+            return parse(filter)
+
     }
 }

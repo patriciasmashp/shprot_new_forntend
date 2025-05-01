@@ -27,8 +27,8 @@ main {
   align-items: center;
 }
 .menu {
-  min-width: 376px;
-  max-width: 450px;
+  min-width: var(--window-width);
+  max-width: var(--window-width);
 }
 footer {
   position: fixed;
@@ -42,11 +42,11 @@ footer {
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 56px;
-  min-width: 376px;
+  min-width: var(--window-width);
   padding-bottom: 70px;
   position: relative;
   width: 100%;
-  max-width: 375px;
+  max-width: var(--window-width);
   
   z-index: 1;
   background-color: black;

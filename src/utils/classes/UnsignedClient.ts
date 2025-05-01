@@ -4,6 +4,7 @@ import type { IClient, TFavorite } from "@/types/Client";
 import type { Master } from "@/types/Master";
 import type { TypeOfRequest } from "@/types/Request";
 import { UserInteract } from "@/types/UserInteract";
+import { DEFAULT_CITY_NAME } from "../consts";
 
 export class UnsignedClient extends UserInteract {
 
@@ -12,7 +13,7 @@ export class UnsignedClient extends UserInteract {
 
     async init() {
         const cities = await getCities()
-        this._city = cities[0]
+        this._city = cities.find((city) => city.name == DEFAULT_CITY_NAME)
     }
 
     is_signed(): boolean {
@@ -30,7 +31,7 @@ export class UnsignedClient extends UserInteract {
         return
     }
 
-    public get client(): object {
+    public get client(): any {
         return {}
     }
 
@@ -39,6 +40,11 @@ export class UnsignedClient extends UserInteract {
     }
 
     async shareMaster(master: Master): Promise<void> {
+
         await navigator.clipboard.writeText(master.documentId)
+    }
+
+    async save(): Promise<boolean> {
+        return false
     }
 }

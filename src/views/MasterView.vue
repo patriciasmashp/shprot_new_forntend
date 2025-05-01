@@ -5,7 +5,7 @@
         <div class="row mx-2">
           <div class="col-8">
             <div class="d-flex">
-              <ButtonItem @click="router.push({ name: 'home' })">
+              <ButtonItem @click="router.back()">
                 <ArrowLeft class="fs-6" />
               </ButtonItem>
             </div>
@@ -110,26 +110,7 @@
     <RequestBlock :master="master" @created="afterREquest"></RequestBlock>
   </DownModal>
 
-  <ModalItem v-model="modalSuccessReportVisible">
-    <div class="text-center">
-      <h3 class="text-white">Жалоба отправлена</h3>
-    </div>
-    <div class="buttons mt-4">
-      <ButtonItem :type="'main'" @click="modalSuccessReportVisible = false">
-        Закрыть
-      </ButtonItem>
-    </div>
-  </ModalItem>
-  <ModalItem v-model="modalSuccessRequestVisible">
-    <div class="text-center">
-      <h3 class="text-white">Заявка отправлена</h3>
-    </div>
-    <div class="buttons mt-4">
-      <ButtonItem :type="'main'" @click="modalSuccessRequestVisible = false">
-        Закрыть
-      </ButtonItem>
-    </div>
-  </ModalItem>
+
 </template>
 <script setup lang="ts">
 import ButtonItem from "@/components/ButtonItem.vue";

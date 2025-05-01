@@ -130,8 +130,8 @@ const onMouseDown = (e: MouseEvent | TouchEvent) => {
   transform: translate(-50%, -50%);
   overflow: hidden;
   width: 100%;
-  max-width: 375px;
-  min-width: 375px;
+  max-width: var(--window-width);
+  min-width: var(--window-width);
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 101;

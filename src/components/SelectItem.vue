@@ -2,24 +2,29 @@
 import ArrowDown from "./icons/ArrowDown.vue";
 import ArrowLeft from "./icons/ArrowLeft.vue";
 
-const model = defineModel()
+const model = defineModel();
 const props = defineProps({
   data: {
     type: Array,
-    required: true
-  }
-})
-
+    required: true,
+  },
+});
 </script>
 
 <template>
   <div class="select-wrapper">
+    <select v-model="model"
+      class="form-select form-select-sm select__main focus-ring focus-ring-dark"
+    >
+    <option :value="option" v-for="option in props.data">{{ option }}</option>
+    </select>
+  </div>
+  <!-- <div class="select-wrapper">
     <select v-model="model" name="select" id="select" class="select__main">
-      <!--Supplement an id here instead of using 'name'-->
       <option :value="option" v-for="option in props.data">{{ option }}</option>
     </select>
     <label for="select"><ArrowDown class="arrow ps-2" /></label>
-  </div>
+  </div> -->
 </template>
 <style scoped>
 .arrow {
@@ -31,7 +36,10 @@ select {
   -moz-appearance: none;
   outline: none;
 }
-
+select:focus {
+  outline: none;
+  box-shadow: none;
+}
 select::-ms-expand {
   display: none;
 }
