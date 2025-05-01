@@ -24,7 +24,6 @@ const client = computed<UserInteract>(() => store.getters.client);
 
 const selectedCitiy = computed({
   get() {
-    
     if (filter.value.isActive && filter.value.cityName) {
       return filter.value.cityName;
     } else if (client.value.city) {
@@ -41,11 +40,10 @@ const selectedCitiy = computed({
 });
 watch(
   () => selectedCitiy.value,
-  async(v) => {
-    const city = store.getters.cities.find((city)=>city.name == v)
-    if (client.value.client) client.value.client.city = city
-    await client.value.save()
-    
+  async (v) => {
+    const city = store.getters.cities.find((city) => city.name == v);
+    if (client.value.client) client.value.client.city = city;
+    await client.value.save();
   }
 );
 window.addEventListener("scroll", (e) => {
@@ -89,9 +87,9 @@ window.addEventListener("scroll", (e) => {
   position: fixed;
   z-index: 100;
   top: 0;
+  left: 0;
+  width: 100%;
   min-width: var(--window-width);
-
-  padding-right: 20px;
 }
 .sticky .header-container {
   backdrop-filter: blur(10px);
