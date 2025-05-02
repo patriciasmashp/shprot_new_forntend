@@ -125,7 +125,7 @@ import { computed, onUnmounted, ref } from "vue";
 import { useStore } from "vuex";
 import type { IStrapiImage } from "@/types/IStrapiResponse";
 import type { Master } from "@/types/Master";
-import { imageParse } from "@/utils/functions";
+import { imageParse, sendMetrik } from "@/utils/functions";
 import RequestBlock from "@/blocks/RequestBlock.vue";
 import ReportBlock from "@/blocks/ReportBlock.vue";
 import type { UserInteract } from "@/types/UserInteract";
@@ -180,7 +180,7 @@ const getImages = computed(() => {
   const photos: Array<IStrapiImage> = master.value.photos;
   return photos.map<string>((el) => el.url);
 });
-
+sendMetrik('master_')
 onUnmounted(async () => {
   store.dispatch("RESET_MASTER");
 });
