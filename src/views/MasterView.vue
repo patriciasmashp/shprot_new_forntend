@@ -185,7 +185,7 @@ const getImages = computed(() => {
 console.log(router.currentRoute.value.path);
 
 yandexMetrika.hit(router.currentRoute.value.path)
-yandexMetrika.reachGoal("master_", {}, ()=> console.log('sended'))
+yandexMetrika.reachGoal(`master_${master.value.documentId}`, {}, ()=> console.log('sended'))
 onUnmounted(async () => {
   store.dispatch("RESET_MASTER");
 });
