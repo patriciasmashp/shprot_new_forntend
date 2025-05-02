@@ -117,7 +117,7 @@ import HeartFilled from "@/components/icons/HeartFilled.vue";
 import IconExport from "@/components/icons/IconExport.vue";
 import SwiperItem from "@/components/SwiperItem.vue";
 import router from "@/router";
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useStore } from "vuex";
 import type { IStrapiImage } from "@/types/IStrapiResponse";
 import type { Master } from "@/types/Master";
@@ -177,15 +177,20 @@ const getImages = computed(() => {
   const photos: Array<IStrapiImage> = master.value.photos;
   return photos.map<string>((el) => el.url);
 });
-// sendMetrik('master_')
-yandexMetrika.reachGoal(`master_`, {}, () =>
-  console.log("sended")
+watch(
+  ()=>master.value,
+  () => {
+    console.log(master.value);
+    sendMetrik(`master_${master.value.documentId}`)
+    yandexMetrika.reachGoal(`master_${master.value.id}`, {}, () => console.log("sended"));
+  },
+  { deep: true, once: true }
 );
+
 console.log(router.currentRoute.value.path);
 onMounted(() => {
   yandexMetrika.hit(router.currentRoute.value.path);
   console.log(master.value);
-  
 });
 onUnmounted(async () => {
   store.dispatch("RESET_MASTER");
