@@ -15,6 +15,19 @@ export const sendMetrik = (action: string) => {
     if (typeof window !== 'undefined' && typeof window.ym !== 'undefined') {
         console.log('sendMetrik', action);
         window.ym(YM_ID, 'reachGoal', action);
-        
+
+    }
+}
+
+export const initMetrik = () => {
+    if (typeof window !== 'undefined' && typeof window.ym !== 'undefined') {
+        console.log('initMetrik');
+        window.ym(YM_ID, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true,
+            ecommerce: "dataLayer",
+        });
     }
 }

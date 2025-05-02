@@ -9,12 +9,19 @@ import '@/assets/vendor/fontello-5a1bbd40/css/testsoruce.css'
 import '@/assets/vendor/fontello-5a1bbd40/font/testsoruce.woff'
 import {store} from '@/store/index'
 import { VueTelegramPlugin } from 'vue-tg'
+import { initYandexMetrika } from 'yandex-metrika-vue3';
+import { YM_ID } from './utils/consts'
 
 
 const app = createApp(App)
 
 app.use(router)
-
+app.use(initYandexMetrika, {
+    id: YM_ID.toString(),
+    router: router,
+    env: process.env.NODE_ENV
+    // other options
+})
 app.use(VueTelegramPlugin)
 app.use(store)
 app.mount('#app')
