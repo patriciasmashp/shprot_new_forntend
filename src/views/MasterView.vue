@@ -130,7 +130,7 @@ import RequestBlock from "@/blocks/RequestBlock.vue";
 import ReportBlock from "@/blocks/ReportBlock.vue";
 import type { UserInteract } from "@/types/UserInteract";
 import { useYandexMetrika } from 'yandex-metrika-vue3'
-initMetrik()
+// initMetrik()
 const yandexMetrika = useYandexMetrika()
 const report_visible = ref(false);
 const request_visible = ref(false);
