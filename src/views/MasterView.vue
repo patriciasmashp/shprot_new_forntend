@@ -102,15 +102,11 @@
     </div>
   </div>
   <DownModal :visible="report_visible" @close="report_visible = false">
-    <ReportBlock :master="master" @created="afterReport">
-
-    </ReportBlock>
+    <ReportBlock :master="master" @created="afterReport"> </ReportBlock>
   </DownModal>
   <DownModal :visible="request_visible" @close="request_visible = false">
     <RequestBlock :master="master" @created="afterREquest"></RequestBlock>
   </DownModal>
-
-
 </template>
 <script setup lang="ts">
 import ButtonItem from "@/components/ButtonItem.vue";
@@ -121,7 +117,7 @@ import HeartFilled from "@/components/icons/HeartFilled.vue";
 import IconExport from "@/components/icons/IconExport.vue";
 import SwiperItem from "@/components/SwiperItem.vue";
 import router from "@/router";
-import { computed, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useStore } from "vuex";
 import type { IStrapiImage } from "@/types/IStrapiResponse";
 import type { Master } from "@/types/Master";
@@ -129,9 +125,9 @@ import { imageParse, initMetrik, sendMetrik } from "@/utils/functions";
 import RequestBlock from "@/blocks/RequestBlock.vue";
 import ReportBlock from "@/blocks/ReportBlock.vue";
 import type { UserInteract } from "@/types/UserInteract";
-import { useYandexMetrika } from 'yandex-metrika-vue3'
+import { useYandexMetrika } from "yandex-metrika-vue3";
 // initMetrik()
-const yandexMetrika = useYandexMetrika()
+const yandexMetrika = useYandexMetrika();
 const report_visible = ref(false);
 const request_visible = ref(false);
 const modalSuccessReportVisible = ref(false);
@@ -146,11 +142,11 @@ const allStyles = computed(() => store.getters.styles);
 const master = computed<Master>(() => store.getters.master);
 
 const afterReport = () => {
-  report_visible.value = false
+  report_visible.value = false;
   modalSuccessReportVisible.value = true;
 };
 const afterREquest = () => {
-  request_visible.value = false
+  request_visible.value = false;
   modalSuccessRequestVisible.value = true;
 };
 
@@ -182,15 +178,18 @@ const getImages = computed(() => {
   return photos.map<string>((el) => el.url);
 });
 // sendMetrik('master_')
+yandexMetrika.reachGoal(`master_`, {}, () =>
+  console.log("sended")
+);
 console.log(router.currentRoute.value.path);
-
-yandexMetrika.hit(router.currentRoute.value.path)
-yandexMetrika.reachGoal(`master_${master.value.documentId}`, {}, ()=> console.log('sended'))
+onMounted(() => {
+  yandexMetrika.hit(router.currentRoute.value.path);
+  console.log(master.value);
+  
+});
 onUnmounted(async () => {
   store.dispatch("RESET_MASTER");
 });
-
-
 </script>
 
 <style scoped>
