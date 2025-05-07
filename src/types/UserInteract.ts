@@ -12,5 +12,6 @@ export abstract class UserInteract {
     abstract is_signed(): boolean
     abstract shareMaster(master: Master): Promise<void>
     abstract save(): Promise<boolean>
+    abstract likeMaster(master: Master): Promise<boolean>
 }
 

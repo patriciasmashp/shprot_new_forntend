@@ -14,7 +14,12 @@ import type City from "@/types/City";
 
 
 export async function getCities() {
-    const resp = await axios.get(routes.getCities)
+    const params = stringify({
+        pagination: {
+            pageSize: 100
+        }
+    })
+    const resp = await axios.get(routes.getCities + "?" + params)
     return resp.data.data
 }
 export async function getCityByName(name: string) {
@@ -183,4 +188,19 @@ function subscribe() {
             return 100
         })
     return data
+}
+
+export async function likeMaster(client: IClient, master: Master){
+    const params = stringify({
+        populate: ["master", "client"]
+    })
+    const data = {
+        data: {
+            master: master.documentId,
+            client: client.documentId
+        }
+    }
+
+    const resp = await axios.post(routes.getLikes + "?" + params, data)
+    return resp.data.data[0]
 }

@@ -6,6 +6,7 @@ import type { Master } from '@/types/Master'
 import { SignedClient } from '@/utils/classes/SignedClient'
 import { UnsignedClient } from '@/utils/classes/UnsignedClient'
 import type { UserInteract } from '@/types/UserInteract'
+import ProxySignedClient from '@/utils/classes/ProxySignedClient'
 
 export const store = createStore({
   state() {
@@ -68,7 +69,7 @@ export const store = createStore({
       }
       else {
         const clientData = await getClient(client_id)
-        client = new SignedClient(clientData)
+        client = new ProxySignedClient(clientData)
         
       }
       context.commit('setClient', client)
@@ -92,7 +93,7 @@ export const store = createStore({
         favToday.masters.push(data.master);
       }
       context.commit('setClient', client);
-      context.dispatch('likeMaster', data.master);      
+      // context.dispatch('likeMaster', data.master);      
 
       await updateClient(client.client.documentId, client);
 

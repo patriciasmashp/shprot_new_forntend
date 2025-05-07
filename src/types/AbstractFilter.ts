@@ -1,7 +1,7 @@
 import type IFilterData from "./IFilterData";
 
 export abstract class AbstractFilter {
-
+    
     public abstract isActive: boolean;
     public abstract cityName: string | null;
     public abstract styleNames: string[];
@@ -14,5 +14,5 @@ export abstract class AbstractFilter {
         return this._filter;
     }
     abstract save(): void
-    abstract getFromStorage(): IFilterData
+    abstract getFromStorage(): IFilterData | null
 }

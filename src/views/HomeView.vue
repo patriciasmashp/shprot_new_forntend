@@ -64,10 +64,18 @@ watch(
 );
 
 onMounted(async () => {
-  const city = store.getters.city;
+  let city = undefined;
+  if (!filter.value.isActive || !filter.value.cityName) {
+    if (client.value.city) {
+      city = client.value.city.name;
+    } else {
+      city = DEFAULT_CITY_NAME;
+    }
+  }
+
   const strapiData = await store.dispatch("FETCH_MASTERS", {
-    city: city ? city : DEFAULT_CITY_NAME,
-    filters: parse(route.query.filter),
+    city: city,
+    filters: filter.value.isActive ? filter.value.filter : {},
   });
 
   masters.value = strapiData.data;
@@ -85,7 +93,6 @@ onUnmounted(() => {
     <MenuHeader />
     <div class="d-flex justify-content-center masters__container">
       <div class="w-100">
-        
         <MasterCard class="my-2" :master="master" v-for="master in masters" />
       </div>
     </div>

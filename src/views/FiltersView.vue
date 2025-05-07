@@ -55,8 +55,9 @@ function clearFilter() {
 function applyFilter() {
   filter.value.cityName = selectedCity.value;
   filter.value.styleNames = selectedStyles.value;
-  
-  router.push({ name: "home", query: {filter: filter.value.build()} });
+  filter.value.build()
+  // filter.value.save()
+  router.push({ name: "home", });
 }
 </script>
 

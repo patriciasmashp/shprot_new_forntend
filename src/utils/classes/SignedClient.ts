@@ -1,10 +1,11 @@
-import { makeReport, makeRequest, updateClient } from "@/api";
+import { makeReport, makeRequest, updateClient, likeMaster } from "@/api";
 import type City from "@/types/City";
 import type { IClient, TFavorite } from "@/types/Client";
 import type { Master } from "@/types/Master";
 import type { TypeOfRequest } from "@/types/Request";
 import { UserInteract } from "@/types/UserInteract";
 import { copyToClipboard, createDeepLink } from "../functions";
+import type { AbstractFilter } from "@/types/AbstractFilter";
 
 declare const window: any
 
@@ -46,5 +47,15 @@ export class SignedClient extends UserInteract {
         console.log(res);
         
         return true
+    }
+
+    async likeMaster(master: Master): Promise<boolean> {
+        try {
+            await likeMaster(this.client, master)
+            return true
+        } catch (e) {
+            console.log(e);
+            return false
+        }
     }
 }

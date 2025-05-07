@@ -50,11 +50,13 @@ export default class Filter extends AbstractFilter {
         this.isActive = false;
     }
     save() {
-            localStorage.setItem("filter", stringify(this));
+            localStorage.setItem("filter", stringify(this.filter));
     }
-    getFromStorage(): IFilterData {
-            const filter = localStorage.getItem("filter");
-            return parse(filter)
+    getFromStorage(): IFilterData | null {
+            const filterStr = localStorage.getItem("filter");
+            if (!filterStr) return null
+            const filter = parse(filterStr) as any
+            return filter as IFilterData
 
     }
 }

@@ -47,4 +47,8 @@ export class UnsignedClient extends UserInteract {
     async save(): Promise<boolean> {
         return false
     }
+
+    async likeMaster(master: Master): Promise<boolean> {
+        return false
+    }
 }

@@ -42,8 +42,8 @@ watch(
   () => selectedCitiy.value,
   async (v) => {
     const city = store.getters.cities.find((city) => city.name == v);
-    if (client.value.client) client.value.client.city = city;
-    await client.value.save();
+    // if (client.value.client) client.value.client.city = city;
+    // await client.value.save();
   }
 );
 window.addEventListener("scroll", (e) => {

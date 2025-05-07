@@ -39,6 +39,7 @@ const animateHeart = (target: HTMLElement) => {
 async function likeMaster(master: Master, event: PointerEvent) {
   const toDay = new Date().toISOString().split("T")[0];
   var target: HTMLElement = event.target as HTMLElement;
+  await client.value.likeMaster(master);
   store.dispatch("ADD_FAVORITE", {
     master: master,
     date: toDay,
