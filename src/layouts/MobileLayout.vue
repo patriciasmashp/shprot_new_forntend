@@ -1,10 +1,22 @@
 <script setup lang="ts">
 import MenuItem from "@/blocks/MenuItem.vue";
+import type { UserInteract } from "@/types/UserInteract";
 import { computed } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 const store = useStore();
 store.dispatch("FETCH_CLIENT");
+const router = useRouter();
 const client = computed(() => {
+  const client: UserInteract = store.getters.client;
+  if (client) {
+    if (!client.city) {
+      router.push({ name: "CityRegister" });
+      
+    }
+  }
+  
+  
   return store.state.client;
 });
 

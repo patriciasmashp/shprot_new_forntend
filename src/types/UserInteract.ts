@@ -13,5 +13,6 @@ export abstract class UserInteract {
     abstract shareMaster(master: Master): Promise<void>
     abstract save(): Promise<boolean>
     abstract likeMaster(master: Master): Promise<boolean>
+    abstract saveCity(city: City): Promise<boolean>
 }
 

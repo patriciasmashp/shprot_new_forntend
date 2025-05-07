@@ -7,6 +7,7 @@ import FiltersView from '@/views/FiltersView.vue'
 import AuctionView from '@/views/AuctionView.vue'
 import FeedView from '@/views/FeedView.vue'
 import UploadForm from '@/views/UploadForm.vue'
+import CityRegister from '@/views/CityRegister.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 
@@ -18,6 +19,13 @@ const router = createRouter({
       props: {
         filter: true
       },
+      
+      meta: {}
+    },
+    {
+      path: '/',
+      name: 'CityRegister',
+      component: CityRegister,
       
       meta: {}
     },

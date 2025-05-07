@@ -51,4 +51,8 @@ export class UnsignedClient extends UserInteract {
     async likeMaster(master: Master): Promise<boolean> {
         return false
     }
+
+    async saveCity(city: City): Promise<boolean> {
+        return true
+    }
 }

@@ -44,8 +44,7 @@ export class SignedClient extends UserInteract {
 
     async save(): Promise<boolean> {
         const res = await updateClient(this.client.documentId, this)
-        console.log(res);
-        
+ 
         return true
     }
 
@@ -57,5 +56,11 @@ export class SignedClient extends UserInteract {
             console.log(e);
             return false
         }
+    }
+
+    async saveCity(city: City): Promise<boolean> {
+        this.client.city = city
+        await this.save()
+        return true
     }
 }
