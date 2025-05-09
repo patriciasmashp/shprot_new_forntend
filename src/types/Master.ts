@@ -18,4 +18,9 @@ export interface Master extends IStrapiData {
     profile_image?: object ;
     balance: number;
     likes: number;
+    aboutRequestCount?: number;
+    requestCount?: number;
+    shareCount?: number;
+    postCount?: number;
+    index?: number;
 }

@@ -20,6 +20,7 @@ export async function getMasters({ page = 1, pageSize = 10, city = "Екатер
                 }
             }
         },
+        sort: ["rank:desc"],
         populate: "*"
     })
     const resp = await axios.get(routes.getMasters + "?" + params)
@@ -39,10 +40,20 @@ export async function getMaster(id: string) {
 export async function updateMaster(master: Master) {
     const data = {
         data: {
-            likes: master.likes
+            likes: master.likes,
         }
     }
     const resp = await axios.put(routes.getMasters + "/" + master.documentId, data)
+    return resp.data
+}
+
+export async function updateMasterStatistic(master: Master) {
+    const data = {
+        data: {
+            aboutRequestCount: master.aboutRequestCount
+        }
+    }
+    const resp = await axios.put(routes.updateMasterStatistic(master.documentId) , data)
     return resp.data
 }
 

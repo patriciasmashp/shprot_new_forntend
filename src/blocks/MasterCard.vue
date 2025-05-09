@@ -15,27 +15,26 @@ import { copyToClipboard, createDeepLink, imageParse } from "@/utils/functions";
 import DownModal from "./DownModal.vue";
 import RequestBlock from "./RequestBlock.vue";
 import type { UserInteract } from "@/types/UserInteract";
+import { MasterInteractor } from "@/utils/classes/MasterInteractor";
 
 interface Props {
   master: Master;
 }
-const client = computed<UserInteract>(() => store.getters.client)
+const client = computed<UserInteract>(() => store.getters.client);
 const props = defineProps<Props>();
 const requestVisible = ref<boolean>(false);
 const getImages = computed(() => {
   if (!props.master.photos) return [];
-  
+
   const photos: Array<IStrapiImage> = props.master.photos;
   return photos.map<string>((el) => el.url);
 });
 const animateHeart = (target: HTMLElement) => {
-  const svg = target.querySelector("svg")
-  if(!svg) {
+  const svg = target.querySelector("svg");
+  if (!svg) {
     target.parentElement?.classList.add("pulse");
-  }
-  else svg.classList.add("pulse");
-  
-}
+  } else svg.classList.add("pulse");
+};
 async function likeMaster(master: Master, event: PointerEvent) {
   const toDay = new Date().toISOString().split("T")[0];
   var target: HTMLElement = event.target as HTMLElement;
@@ -44,15 +43,17 @@ async function likeMaster(master: Master, event: PointerEvent) {
     master: master,
     date: toDay,
   });
-  
+
   animateHeart(target);
-
 }
-
+async function aboutMaster(master: Master) {
+  router.push({ name: "masterView", params: { id: master.documentId } });
+  const interactor = new MasterInteractor()
+  await interactor.updateStatistic(master, {aboutRequestCount: 1})
+}
 </script>
 
 <template>
-
   <div class="card">
     <div class="card-body w-100" style="padding: 4px">
       <SwiperItem
@@ -88,10 +89,7 @@ async function likeMaster(master: Master, event: PointerEvent) {
           <ButtonItem
             font-size="10px"
             @click="
-              router.push({
-                name: 'masterView',
-                params: { id: props.master.documentId },
-              })
+              aboutMaster(props.master);
             "
             :size="'small'"
             >О мастере</ButtonItem
@@ -107,7 +105,9 @@ async function likeMaster(master: Master, event: PointerEvent) {
           >
         </div>
         <div class="card__button">
-          <ButtonItem @click="client.shareMaster(master)"><IconExport class="fs-6" /></ButtonItem>
+          <ButtonItem @click="client.shareMaster(master)"
+            ><IconExport class="fs-6"
+          /></ButtonItem>
         </div>
         <div class="card__button">
           <ButtonItem @click="(event) => likeMaster(master, event)"

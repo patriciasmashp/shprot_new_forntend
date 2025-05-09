@@ -15,5 +15,7 @@ export default {
     media: baseUrl + "/api/upload",
 
     uploadVideoWebApp: baseUrl + "/api/telegram/handleFile",
-    getUploadStatus: baseUrl + "/api/telegram/fileUploadStatus"
+    getUploadStatus: baseUrl + "/api/telegram/fileUploadStatus",
+
+    updateMasterStatistic: (document_id: string) => baseUrl + `/api/masters/${document_id}/statistic`,
 }

@@ -39,9 +39,11 @@ export const master = {
         }
     },
     actions: {
-        async FETCH_MASTER(context, master_id: number) {
-            const master = await getMaster(master_id)
+        async FETCH_MASTER(context, masterDocumentId: string) {
+            const master = await getMaster(masterDocumentId)
             context.commit('setMaster', master)
+            console.log(master);
+            
             return master
         },
         async FETCH_MASTERS(context, { page = 1, pageSize = 10, city = DEFAULT_CITY_NAME, filters = {} }) {
