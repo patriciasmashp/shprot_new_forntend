@@ -6,13 +6,11 @@ import MenuHeader from "@/blocks/MenuHeader.vue";
 import RequestBlock from "@/blocks/RequestBlock.vue";
 import type { AbstractFilter } from "@/types/AbstractFilter";
 import { DEFAULT_CITY_NAME } from "@/utils/consts";
-import { parse } from "qs";
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+
 import { useStore } from "vuex";
 
 const store = useStore();
-const route = useRoute();
 
 const requestVisible = ref(false);
 const masters = ref();
@@ -83,8 +81,8 @@ onMounted(async () => {
   window.addEventListener("scroll", checkPosition);
 });
 onUnmounted(() => {
-  window.removeEventListener("scroll", checkPosition);
-  store.dispatch("CLEAR_MASTERS");
+  // window.removeEventListener("scroll", checkPosition);
+  // store.dispatch("CLEAR_MASTERS");
 });
 </script>
 

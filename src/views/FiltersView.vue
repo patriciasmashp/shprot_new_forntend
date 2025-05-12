@@ -11,7 +11,7 @@ import type { AbstractFilter } from "@/types/AbstractFilter";
 import type City from "@/types/City";
 import type Style from "@/types/Style";
 import { computed, ref } from "vue";
-import type { ComputedRef, Ref } from "vue";
+import type {  Ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();

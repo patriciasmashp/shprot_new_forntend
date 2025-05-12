@@ -29,6 +29,13 @@ const getImages = computed(() => {
   const photos: Array<IStrapiImage> = props.master.photos;
   return photos.map<string>((el) => el.url);
 });
+
+const masterAvatar = computed(() => {
+  if (!props.master.profile_image) return avatar;
+  console.log(props.master.profile_image);
+  
+  return imageParse(props.master.profile_image.url);
+});
 const animateHeart = (target: HTMLElement) => {
   const svg = target.querySelector("svg");
   if (!svg) {
@@ -65,7 +72,7 @@ async function aboutMaster(master: Master) {
       <div class="d-flex mt-2 pe-3 align-items-center">
         <div class="col-2 text-center me-3 pe-0 avatar-container">
           <img
-            :src="imageParse(props.master.profile_image?.formats.thumbnail.url)"
+            :src="masterAvatar"
             class="rounded-circle"
           />
         </div>

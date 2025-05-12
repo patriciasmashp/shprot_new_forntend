@@ -18,6 +18,9 @@ export async function getMasters({ page = 1, pageSize = 10, city = "Екатер
                 name: {
                     $eq: city
                 }
+            },
+            validated: {
+                $eq: true
             }
         },
         sort: ["rank:desc"],

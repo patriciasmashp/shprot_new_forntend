@@ -5,7 +5,8 @@
         <div class="row mx-2">
           <div class="col-8">
             <div class="d-flex">
-              <ButtonItem @click="router.back()">
+              
+              <ButtonItem @click="router.push({name: 'home'})">
                 <ArrowLeft class="fs-6" />
               </ButtonItem>
             </div>
@@ -64,13 +65,14 @@
             </div>
           </div>
         </div>
-        <div class="mt-3">
-          <span class="text-white fw-semibold">Стили татуировок:</span>
-          <span
-            class="text-purple fw-semibold ms-1"
+        <div class="mt-3 d-flex flex-wrap">
+          <div class="text-white fw-semibold style-item ">Стили татуировок:</div>
+          <div
+            class="text-purple m-0 style-item fw-semibold ms-1"
             v-for="style in masterStyles"
-            >{{ style }}</span
           >
+            {{ style }}
+          </div>
         </div>
         <div class="mt-3">
           <span class="text-white fw-semibold">О себе:</span>
@@ -164,7 +166,7 @@ const masterStyles = computed(() => {
 async function likeMaster(master: Master, event: PointerEvent) {
   const toDay = new Date().toISOString().split("T")[0];
   var target: HTMLElement = event.target as HTMLElement;
-  client.value.likeMaster(master)
+  client.value.likeMaster(master);
   store.dispatch("ADD_FAVORITE", {
     master: master,
     date: toDay,
@@ -179,11 +181,13 @@ const getImages = computed(() => {
   return photos.map<string>((el) => el.url);
 });
 watch(
-  ()=>master.value,
+  () => master.value,
   () => {
     console.log(master.value);
-    sendMetrik(`master_${master.value.documentId}`)
-    yandexMetrika.reachGoal(`master_${master.value.id}`, {}, () => console.log("sended"));
+    sendMetrik(`master_${master.value.documentId}`);
+    yandexMetrika.reachGoal(`master_${master.value.id}`, {}, () =>
+      console.log("sended")
+    );
   },
   { deep: true, once: true }
 );
@@ -235,5 +239,8 @@ nav {
 nav .nav-wrapper {
   max-width: 343px;
   margin: auto;
+}
+.style-item{
+  font-size: 11px;
 }
 </style>
