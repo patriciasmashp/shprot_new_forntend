@@ -47,7 +47,7 @@
         <div class="row mt-4 pe-3 align-items-center">
           <div class="col-3 master-avatar-container">
             <img
-              :src="imageParse(master.profile_image?.url)"
+              :src="masterAvatar"
               class="rounded-circle"
             />
           </div>
@@ -128,6 +128,7 @@ import RequestBlock from "@/blocks/RequestBlock.vue";
 import ReportBlock from "@/blocks/ReportBlock.vue";
 import type { UserInteract } from "@/types/UserInteract";
 import { useYandexMetrika } from "yandex-metrika-vue3";
+import avatar from "@/assets/images/avatar_placheholder.png";
 // initMetrik()
 const yandexMetrika = useYandexMetrika();
 const report_visible = ref(false);
@@ -161,6 +162,12 @@ const masterStyles = computed(() => {
     return allStyles.value.map((style) => style.style_name);
   }
   return style_names;
+});
+
+const masterAvatar = computed(() => {
+  if (!master.value.profile_image) return avatar;
+  if (!master.value.profile_image.url || master.value.profile_image.url == undefined) return avatar;
+  return imageParse(master.value.profile_image.url);
 });
 
 async function likeMaster(master: Master, event: PointerEvent) {

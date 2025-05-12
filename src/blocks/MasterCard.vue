@@ -7,11 +7,10 @@ import IconExport from "@/components/icons/IconExport.vue";
 import HeartFilled from "@/components/icons/HeartFilled.vue";
 import router from "@/router";
 import type { Master } from "@/types/Master";
-import { baseUrl } from "@/api/routes";
 import { computed, ref, useTemplateRef } from "vue";
 import type { IStrapiImage } from "@/types/IStrapiResponse";
 import { store } from "@/store";
-import { copyToClipboard, createDeepLink, imageParse } from "@/utils/functions";
+import { imageParse } from "@/utils/functions";
 import DownModal from "./DownModal.vue";
 import RequestBlock from "./RequestBlock.vue";
 import type { UserInteract } from "@/types/UserInteract";
@@ -32,7 +31,7 @@ const getImages = computed(() => {
 
 const masterAvatar = computed(() => {
   if (!props.master.profile_image) return avatar;
-  if (!props.master.profile_image.url) return avatar;
+  if (!props.master.profile_image.url || props.master.profile_image.url == undefined) return avatar;
   return imageParse(props.master.profile_image.url);
 });
 const animateHeart = (target: HTMLElement) => {
