@@ -15,7 +15,7 @@ export interface Master extends IStrapiData {
     validated: boolean;
     photos?: Array<IStrapiImage>;
     styles?: Array<object>;
-    profile_image?: object ;
+    profile_image?: any ;
     balance: number;
     likes: number;
     aboutRequestCount?: number;

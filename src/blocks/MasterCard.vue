@@ -32,8 +32,7 @@ const getImages = computed(() => {
 
 const masterAvatar = computed(() => {
   if (!props.master.profile_image) return avatar;
-  console.log(props.master.profile_image);
-  
+  if (!props.master.profile_image.url) return avatar;
   return imageParse(props.master.profile_image.url);
 });
 const animateHeart = (target: HTMLElement) => {
