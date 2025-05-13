@@ -16,6 +16,10 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  build:{
+    outDir: process.env.NODE_ENV === 'production' ? '/var/www' : 'dist',
+    emptyOutDir: true
+  },
   server: {
     allowedHosts: true,
     port: 3000,

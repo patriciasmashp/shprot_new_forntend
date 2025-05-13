@@ -4,6 +4,8 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
 store.dispatch("FETCH_CLIENT");
+
+
 const client = computed(() => {
   return store.getters.client;
 });

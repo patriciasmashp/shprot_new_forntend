@@ -3,6 +3,7 @@ import { AbstractFilter } from "@/types/AbstractFilter";
 import type IFilterData from "@/types/IFilterData";
 import { stringify, parse } from 'qs';
 import { useCloudStorage } from 'vue-tg'
+import { DEFAULT_CITY_NAME } from "../consts";
 
 const cloudStorage = useCloudStorage()
 declare const window: any;
@@ -30,6 +31,11 @@ export default class Filter extends AbstractFilter {
     }
 
     build() {
+        if (!this.cityName) {
+           
+            this.cityName = DEFAULT_CITY_NAME;
+        }
+
         const filter: IFilterData = {
             city: {
                 name: { $eq: this.cityName },

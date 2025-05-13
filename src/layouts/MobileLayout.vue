@@ -14,9 +14,7 @@ const client = computed(() => {
       router.push({ name: "CityRegister" });
       
     }
-  }
-  
-  
+  }  
   return store.state.client;
 });
 

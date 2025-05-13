@@ -36,7 +36,7 @@ async function checkPosition(e: Event) {
     metaPages.value.page++;
     const strapiData = await getMasters({
       page: metaPages.value.page,
-      city: "Краснодар",
+      city: DEFAULT_CITY_NAME,
     });
 
     if (!strapiData.data) return;

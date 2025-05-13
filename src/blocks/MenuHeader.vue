@@ -35,6 +35,8 @@ const selectedCitiy = computed({
   set(v) {
     store.getters.filter.cityName = v;
     store.getters.filter.build();
+   
+    
     store.getters.filter.save();
   },
 });

@@ -10,8 +10,10 @@ import router from "@/router";
 import type { AbstractFilter } from "@/types/AbstractFilter";
 import type City from "@/types/City";
 import type Style from "@/types/Style";
+import type { UserInteract } from "@/types/UserInteract";
+import { DEFAULT_CITY_NAME } from "@/utils/consts";
 import { computed, ref } from "vue";
-import type {  Ref } from "vue";
+import type { Ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
@@ -31,6 +33,10 @@ const filter = computed<AbstractFilter>(() => {
   return store.getters.filter;
 });
 
+const client = computed<UserInteract>(() => {
+  return store.getters.client;
+});
+
 const searchedCities: Ref<Array<string>> = ref([]);
 
 const selectedCity: Ref<string | null> = ref(filter.value.cityName);
@@ -46,18 +52,29 @@ function endSearch() {
 }
 function search(e: InputEvent) {
   const inputValue = (e.target as HTMLInputElement).value;
-  searchedCities.value = cities.value.filter((el: string) => el.startsWith(inputValue));
+  searchedCities.value = cities.value.filter((el: string) =>
+    el.startsWith(inputValue)
+  );
 }
 function clearFilter() {
-  filter.value.clear()
-  router.push({ name: "home"});
+  filter.value.clear();
+  router.push({ name: "home" });
 }
 function applyFilter() {
-  filter.value.cityName = selectedCity.value;
+  if (!selectedCity.value) {
+    if (client.value.city) {
+      selectedCity.value = client.value.city.name;
+    } else {
+      selectedCity.value = DEFAULT_CITY_NAME;
+    }
+  } else {
+    filter.value.cityName = selectedCity.value;
+  }
+
   filter.value.styleNames = selectedStyles.value;
-  filter.value.build()
+  filter.value.build();
   // filter.value.save()
-  router.push({ name: "home", });
+  router.push({ name: "home" });
 }
 </script>
 
