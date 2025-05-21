@@ -31,3 +31,30 @@ export const initMetrik = () => {
         });
     }
 }
+
+export const dateFormat = (date: string) => {
+    return new Intl.DateTimeFormat("ru-RU", {
+        day: "numeric",
+        month: "long",
+    }).format(new Date(date));
+};
+
+export function generateRandomString(length: number) {
+    return Math.random()
+        .toString(36)
+        .substring(2, length + 2);
+}
+type createdAt = {
+    createdAt: string;
+    [key: string]: any; // любые другие поля
+}
+export function groupByCreatedAt(array: createdAt[]):any {
+    return array.reduce((acc: any, item) => {
+        const date = dateFormat(item.createdAt);
+        if (!acc[date]) {
+            acc[date] = [];
+        }
+        acc[date].push(item);
+        return acc;
+    }, {});
+}

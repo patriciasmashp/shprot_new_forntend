@@ -32,6 +32,7 @@ mainButton.onClick(async () => {
         );
       else {
         loading.value = true;
+        if (!fileToSave.value) return;
         const key = await uploadVideoToStrapi(fileToSave.value, (progress) => {
           console.log(progress, "progressssssss");
           progressPercent.value = progress;

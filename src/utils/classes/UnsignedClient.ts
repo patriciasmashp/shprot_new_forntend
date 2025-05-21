@@ -1,19 +1,26 @@
 import { getCities, makeReport, makeRequest } from "@/api";
-import type City from "@/types/City";
+import type { City } from "@/types/City";
 import type { IClient, TFavorite } from "@/types/Client";
 import type { Master } from "@/types/Master";
 import type { TypeOfRequest } from "@/types/Request";
 import { UserInteract } from "@/types/UserInteract";
 import { DEFAULT_CITY_NAME } from "../consts";
+import type { Auction, AuctionData, CreateAuctionResponse } from "@/types/Auction";
+import type { AuctionBuilder } from "./AuctionInteractor";
+import { AxiosError } from "axios";
 
 export class UnsignedClient extends UserInteract {
 
-    private _client: IClient | any;
+
     private _city?: City;
 
     async init() {
         const cities = await getCities()
-        this._city = cities.find((city) => city.name == DEFAULT_CITY_NAME)
+        const city = cities.find((city) => city.name == DEFAULT_CITY_NAME)
+        if (!city) {
+            throw new Error("City not found")
+        }
+        this._city = city
     }
 
     is_signed(): boolean {
@@ -31,11 +38,11 @@ export class UnsignedClient extends UserInteract {
         return
     }
 
-    public get client(): any {
-        return {}
-    }
 
     public get city(): City {
+        if (!this._city) {
+            throw new Error("City not found")
+        }
         return this._city
     }
 
@@ -54,5 +61,23 @@ export class UnsignedClient extends UserInteract {
 
     async saveCity(city: City): Promise<boolean> {
         return true
+    }
+
+    async createAuction(auctionBuilder: AuctionBuilder): Promise<CreateAuctionResponse> {
+        throw new Error("Method not implemented.")
+    }
+
+    async getActiveAuctions(): Promise<Auction[]> {
+        return []
+    }
+
+    async getInactiveAuctions(): Promise<Auction[]> {
+        return []
+    }
+    async selectMasterAuction(masterDocumentId: string, auctionId: string): Promise<void> {
+        return
+    }
+    isBanned(): boolean {
+        return false
     }
 }

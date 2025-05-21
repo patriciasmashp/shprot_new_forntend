@@ -11,7 +11,8 @@ export default {
     getRequests: baseUrl + "/api/requests",
     getReports: baseUrl + "/api/reports",
     getLikes: baseUrl + "/api/likes",
-    
+    getAuctions: baseUrl + "/api/auctions",
+    auctionSentMasterContact: baseUrl + "/api/auctions/notifyMasterSelectedByClient",
     media: baseUrl + "/api/upload",
 
     uploadVideoWebApp: baseUrl + "/api/telegram/handleFile",

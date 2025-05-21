@@ -50,8 +50,8 @@ function startSearch() {
 function endSearch() {
   filtersVisible.value = true;
 }
-function search(e: InputEvent) {
-  const inputValue = (e.target as HTMLInputElement).value;
+function search(newValue: string) {
+  const inputValue = newValue;
   searchedCities.value = cities.value.filter((el: string) =>
     el.startsWith(inputValue)
   );

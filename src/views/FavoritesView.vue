@@ -96,7 +96,7 @@ import HeartOutline from "@/components/icons/HeartOutline.vue";
 import HeartSlashed from "@/components/icons/HeartSlashed.vue";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import { imageParse } from "@/utils/functions";
+import { dateFormat, imageParse } from "@/utils/functions";
 import type { Master } from "@/types/Master";
 import { master } from "@/store/modules/master";
 import ModalItem from "@/components/ModalItem.vue";
@@ -108,12 +108,7 @@ const favorites = computed(() => client.value.getFavorites());
 const toMaster = (master: Master) => {
   router.push({ name: "masterView", params: { id: master.documentId } });
 };
-const dateFormat = (date: string) => {
-  return new Intl.DateTimeFormat("ru-RU", {
-    day: "numeric",
-    month: "long",
-  }).format(new Date(date));
-};
+
 const masterToDelete = ref();
 const closeModal = () => {
   askModalVisible.value = false;

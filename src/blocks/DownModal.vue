@@ -17,6 +17,7 @@
           transform: `translate(${posX}px, ${posY}px)`,
           zIndex: 9999,
           bottom: 0,
+          minHeight: props.height || undefined,
         }"
       >
         <div
@@ -26,7 +27,7 @@
         >
           <div class="down-modal__line"></div>
         </div>
-        <div class="elips__purple"></div>
+        <div class="elips__purple" :style="{backgroundColor: elipsColor}"></div>
         <div class="down-modal__body mt-4">
           <slot></slot>
         </div>
@@ -37,13 +38,15 @@
 <script setup lang="ts">
 import ButtonItem from "@/components/ButtonItem.vue";
 import ArrowLeft from "@/components/icons/ArrowLeft.vue";
-import { ref, useTemplateRef, watch } from "vue";
+import { computed, ref, useTemplateRef, watch } from "vue";
 
 const emit = defineEmits(["close"]);
-const props = defineProps(["visible", "color"]);
+const props = defineProps(["visible", "color", "height"]);
 const posX = ref(0);
 const posY = ref(0);
 const startPos = ref({ y: 0, curentPos: 0 });
+const elipsColor = computed(() => props.color || "#601582a7");
+
 const windowElement = useTemplateRef("down-modal__window");
 watch(
   () => props.visible,
@@ -125,7 +128,7 @@ const onMouseDown = (e: MouseEvent | TouchEvent) => {
 .down-modal__container {
   position: fixed;
   backdrop-filter: blur(25px);
-  top: 40%;
+  top: 41%;
   left: 50%;
   transform: translate(-50%, -50%);
   overflow: hidden;
@@ -155,7 +158,7 @@ const onMouseDown = (e: MouseEvent | TouchEvent) => {
   /* left: calc(50% - 300px / 2 - 4.5px); */
   /* top: calc(50% - 428px / 2 + 221px); */
   z-index: 102;
-  background: #601582a7;
+  /* background: #601582a7; */
   filter: blur(150px);
 }
 

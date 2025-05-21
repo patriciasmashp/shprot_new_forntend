@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'testsoruce';
-  src: url('../font/testsoruce.eot?57289860');
-  src: url('../font/testsoruce.eot?57289860#iefix') format('embedded-opentype'),
-       url('../font/testsoruce.woff2?57289860') format('woff2'),
-       url('../font/testsoruce.woff?57289860') format('woff'),
-       url('../font/testsoruce.ttf?57289860') format('truetype'),
-       url('../font/testsoruce.svg?57289860#testsoruce') format('svg');
+  src: url('../font/testsoruce.eot?65287763');
+  src: url('../font/testsoruce.eot?65287763#iefix') format('embedded-opentype'),
+       url('../font/testsoruce.woff2?65287763') format('woff2'),
+       url('../font/testsoruce.woff?65287763') format('woff'),
+       url('../font/testsoruce.ttf?65287763') format('truetype'),
+       url('../font/testsoruce.svg?65287763#testsoruce') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'testsoruce';
-    src: url('../font/testsoruce.svg?57289860#testsoruce') format('svg');
+    src: url('../font/testsoruce.svg?65287763#testsoruce') format('svg');
   }
 }
 */
@@ -69,4 +69,6 @@
 .icon-heart-slash:before { content: '\e80c'; } /* '' */
 .icon-search:before { content: '\e80d'; } /* '' */
 .icon-arrow-down:before { content: '\e80e'; } /* '' */
+.icon-danger:before { content: '\e80f'; } /* '' */
+.icon-add-square:before { content: '\e810'; } /* '' */
 .icon-whatsapp:before { content: '\f232'; } /* '' */

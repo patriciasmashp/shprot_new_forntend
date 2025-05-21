@@ -1,11 +1,13 @@
-import { makeReport, makeRequest, updateClient, likeMaster } from "@/api";
-import type City from "@/types/City";
+import { makeReport, makeRequest, updateClient, likeMaster, createAuction, uploadAuctionFile, getActiveAuctions, selectMasterAuction, getInactiveAuctions } from "@/api";
+import type { City } from "@/types/City";
 import type { IClient, TFavorite } from "@/types/Client";
 import type { Master } from "@/types/Master";
 import type { TypeOfRequest } from "@/types/Request";
 import { UserInteract } from "@/types/UserInteract";
 import { copyToClipboard, createDeepLink } from "../functions";
 import type { AbstractFilter } from "@/types/AbstractFilter";
+import type { Auction, AuctionData, CreateAuctionResponse } from "@/types/Auction";
+import type { AuctionBuilder } from "./AuctionInteractor";
 
 declare const window: any
 
@@ -32,7 +34,7 @@ export class SignedClient extends UserInteract {
         await makeReport(master, this.client, text, file)
     }
 
-    get city(): City{
+    get city(): City {
         return this.client.city
     }
 
@@ -44,7 +46,7 @@ export class SignedClient extends UserInteract {
 
     async save(): Promise<boolean> {
         const res = await updateClient(this.client.documentId, this)
- 
+
         return true
     }
 
@@ -62,5 +64,39 @@ export class SignedClient extends UserInteract {
         this.client.city = city
         await this.save()
         return true
+    }
+
+    async createAuction(auctionBuilder: AuctionBuilder): Promise<CreateAuctionResponse> {
+        const auctionData = auctionBuilder.build(this.client)
+        try {
+
+            let auction = await createAuction(auctionData)
+
+            return {
+                success: true,
+                data: auction,
+            }
+        }
+        catch (e: any) {
+            return {
+                success: false,
+                message: e.message,
+            }
+        }
+    }
+
+    async getActiveAuctions(): Promise<Auction[]> {
+        return await getActiveAuctions(this.client.documentId)
+    }
+
+    async getInactiveAuctions(): Promise<Auction[]> {
+        return await getInactiveAuctions(this.client.documentId)
+    }
+    async selectMasterAuction(masterDocumentId: string, auctionId: string): Promise<void> {
+        await selectMasterAuction(masterDocumentId, auctionId)
+    }
+    
+    isBanned(): boolean {
+        return this.client.banned
     }
 }

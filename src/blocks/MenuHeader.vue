@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { getCityByName } from "@/api";
 import HeartCircle from "@/components/icons/HeartCircle.vue";
 import SettingAnactive from "@/components/icons/SettingAnactive.vue";
 import SettingsCircle from "@/components/icons/SettingsCircle.vue";
 import SelectItem from "@/components/SelectItem.vue";
 import router from "@/router";
-import type City from "@/types/City";
+import type { City } from "@/types/City";
 import type { UserInteract } from "@/types/UserInteract";
 import { DEFAULT_CITY_NAME } from "@/utils/consts";
 import { computed, ref, watch } from "vue";
@@ -35,15 +34,14 @@ const selectedCitiy = computed({
   set(v) {
     store.getters.filter.cityName = v;
     store.getters.filter.build();
-   
-    
+
     store.getters.filter.save();
   },
 });
 watch(
   () => selectedCitiy.value,
   async (v) => {
-    const city = store.getters.cities.find((city) => city.name == v);
+    const city = store.getters.cities.find((city: City) => city.name == v);
     // if (client.value.client) client.value.client.city = city;
     // await client.value.save();
   }

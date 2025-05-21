@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import SearchIcon from "./icons/SearchIcon.vue";
 const props = defineProps({
   placeholder: {
@@ -8,8 +9,88 @@ const props = defineProps({
   icon: {
     type: Object,
   },
+  postfix: {
+    type: String,
+    default: "",
+  },
+  type: {
+    type: String,
+    default: "text",
+  },
+  centred: {
+    type: Boolean,
+    default: false,
+  },
 });
 
+function addFormatter(
+  input: HTMLInputElement,
+  formatFn: CallableFunction,
+  callback: CallableFunction
+) {
+  let oldValue = input.value;
+
+  const handleInput = (event: Event) => {
+    const result = formatFn(input.value, oldValue, event);
+    if (typeof result === "string") {
+      input.value = result;
+    }
+
+    oldValue = input.value;
+
+    if (callback !== undefined) {
+      callback(input, result);
+    }
+  };
+
+  input.addEventListener("input", handleInput);
+}
+
+function createRegexFormatter(regex: RegExp, defaultValue: string) {
+  return (newValue: string, oldValue: string) =>
+    regex.test(newValue)
+      ? newValue
+      : oldValue
+      ? oldValue
+      : newValue + defaultValue;
+}
+
+onMounted(() => {
+  if (props.postfix) {
+    const inputElement = document.querySelector(
+      'input[data-input-name="input-component"]'
+    ) as HTMLInputElement;
+    const regex = new RegExp(`\\${props.postfix}$`);
+    console.log(regex);
+
+    addFormatter(
+      inputElement,
+      createRegexFormatter(regex, props.postfix),
+      (input: HTMLInputElement) => {
+        // input.focus();
+        const pos = Math.max(0, input.value.length - props.postfix.length);
+        input.setSelectionRange(pos, pos);
+      }
+    );
+  }
+});
+
+function getValue() {
+  const inputElement = document.querySelector(
+    'input[data-input-name="input-component"]'
+  ) as HTMLInputElement;
+  if (props.postfix) {
+    const regex = new RegExp(`\\${props.postfix}$`);
+    const value = inputElement.value.replace(regex, "");
+
+    return value;
+  }
+  return inputElement.value;
+}
+
+const onInput = (e: Event) => {
+  emit("input", getValue());
+};
 const emit = defineEmits(["focusin", "focusout", "input"]);
 </script>
 
@@ -18,10 +99,12 @@ const emit = defineEmits(["focusin", "focusout", "input"]);
     <component v-if="props.icon" :is="props.icon" class="ico" />
     <input
       :placeholder="props.placeholder"
-      @input="(e) => emit('input', e)"
+      @input="onInput"
       @focusout="emit('focusout')"
       @focusin="emit('focusin')"
-      type="text"
+      :type="props.type"
+      :style="{ textAlign: props.centred ? 'center' : 'left' }"
+      data-input-name="input-component"
       name=""
       id=""
     />

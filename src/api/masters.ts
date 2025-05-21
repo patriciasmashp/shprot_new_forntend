@@ -2,9 +2,7 @@ import axios from "axios"
 import routes from "./routes"
 import { stringify } from 'qs';
 import type { Master } from "@/types/Master";
-import type IStrapiData from "@/types/IStrapiData";
-import type { IStrapiResponse } from "@/types/IStrapiResponse";
-import type { IClient } from "@/types/Client";
+
 
 export async function getMasters({ page = 1, pageSize = 10, city = "Екатеринбург", filters = {} }) {
 
@@ -56,7 +54,7 @@ export async function updateMasterStatistic(master: Master) {
             aboutRequestCount: master.aboutRequestCount
         }
     }
-    const resp = await axios.put(routes.updateMasterStatistic(master.documentId) , data)
+    const resp = await axios.put(routes.updateMasterStatistic(master.documentId), data)
     return resp.data
 }
 

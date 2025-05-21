@@ -3,31 +3,28 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import mkcert from 'vite-plugin-mkcert'
 
 
+let plugins = [vue(), vueDevTools()]
+process.env.NODE_ENV === 'development' ? plugins.push(mkcert()) : {}
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
-    vueDevTools(),
+    ...plugins
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
-  build:{
+  build: {
     outDir: process.env.NODE_ENV === 'production' ? '/var/www' : 'dist',
     emptyOutDir: true
   },
   server: {
     allowedHosts: true,
     port: 3000,
-    // hmr: {
-    //   protocol: 'http',
-    //   host: 'localhost',
-    //   // port: 3000,
-    // },
   },
 
 })

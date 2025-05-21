@@ -1,5 +1,5 @@
-import type IStrapiData from "./IStrapiData";
+import type { IStrapiData } from "./IStrapiData";
 
-export default interface City extends IStrapiData{
+export type City = IStrapiData & {
     name: string;
 }

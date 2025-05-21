@@ -4,6 +4,8 @@ import type { UserInteract } from "@/types/UserInteract";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import bannedImage  from "@/assets/images/you-are-banned.svg";
+
 const store = useStore();
 store.dispatch("FETCH_CLIENT");
 const router = useRouter();
@@ -12,17 +14,24 @@ const client = computed(() => {
   if (client) {
     if (!client.city) {
       router.push({ name: "CityRegister" });
-      
     }
-  }  
+  }
   return store.state.client;
 });
-
 </script>
 
 <template>
   <main v-if="client">
-    <div class="main-container">
+    <div class="main-container" v-if="client.isBanned()">
+      <div class="text-center">
+        <h1 class="text-white">Вы забанены</h1>
+        <img :src="bannedImage" alt="You are banned" />
+      </div>
+      <footer class="d-flex justify-content-center">
+        <MenuItem class="menu" />
+      </footer>
+    </div>
+    <div class="main-container" v-else>
       <div class="elips__blue"></div>
       <slot></slot>
       <div class="elips__purple"></div>
@@ -85,4 +94,3 @@ footer {
   filter: blur(80px);
 }
 </style>
-

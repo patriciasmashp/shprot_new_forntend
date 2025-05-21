@@ -14,11 +14,14 @@ import { YM_ID } from './utils/consts'
 
 
 const app = createApp(App)
+console.log();
 
 app.use(router)
+// @ts-expect-error
 app.use(initYandexMetrika, {
     id: YM_ID.toString(),
     router: router,
+    // @ts-expect-error
     env: process.env.NODE_ENV
     // other options
 })

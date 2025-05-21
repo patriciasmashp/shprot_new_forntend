@@ -8,6 +8,9 @@ import AuctionView from '@/views/AuctionView.vue'
 import FeedView from '@/views/FeedView.vue'
 import UploadForm from '@/views/UploadForm.vue'
 import CityRegister from '@/views/CityRegister.vue'
+import AuctionResponseView from '@/views/AuctionResponseView.vue'
+import CreateAuctionView from '@/views/CreateAuctionView.vue'
+import PuprpleLayout from '@/layouts/PuprpleLayout.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 
@@ -19,14 +22,14 @@ const router = createRouter({
       props: {
         filter: true
       },
-      
+
       meta: {}
     },
     {
       path: '/',
       name: 'CityRegister',
       component: CityRegister,
-      
+
       meta: {}
     },
     {
@@ -38,36 +41,52 @@ const router = createRouter({
       }
     },
     {
-      path: '/favorites',
-      name: 'favorites',
-      component: Favorites,
-      meta: {}
+      path: '/auction/:auctionId/:masterId',
+      name: 'auctionMasterResponse',
+      component: AuctionResponseView,
+      meta: {
+      layout: MobileDark
+    }
     },
-    {
-      path: '/filters',
-      name: 'filters',
-      component: FiltersView,
-      meta: {}
-    },
-    {
-      path: '/auction',
-      name: 'auction',
-      component: AuctionView,
-      meta: {}
-    },
-    {
-      path: '/feed',
-      name: 'feed',
-      component: FeedView,
-      meta: {}
-    },
-    {
-      path: '/videoUpload',
-      name: 'videoUpload',
-      component: UploadForm,
-      meta: {}
-    },
-    
+  {
+    path: '/favorites',
+    name: 'favorites',
+    component: Favorites,
+    meta: {}
+  },
+  {
+    path: '/filters',
+    name: 'filters',
+    component: FiltersView,
+    meta: {}
+  },
+  {
+    path: '/auction',
+    name: 'auction',
+    component: AuctionView,
+    meta: {}
+  },
+  {
+    path: '/createAuction',
+    name: 'createAuction',
+    component: CreateAuctionView,
+    meta: {
+      layout: PuprpleLayout
+    }
+  },
+  {
+    path: '/feed',
+    name: 'feed',
+    component: FeedView,
+    meta: {}
+  },
+  {
+    path: '/videoUpload',
+    name: 'videoUpload',
+    component: UploadForm,
+    meta: {}
+  },
+
   ],
 })
 

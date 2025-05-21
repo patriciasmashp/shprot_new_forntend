@@ -6,7 +6,6 @@
         :checked="true ? model == button.label : false"
         v-model="model"
         :value="button.label"
-        @change="handleChange(index)"
         name="radioGroup"
         :id="index"
       />
@@ -31,10 +30,7 @@ const props = defineProps({
 
 const buttons = computed(() => props.buttons);
 const model = defineModel('label')
-// const pick = ref(Object.values(props.buttons)[0].label);
-function handleChange(index) {
-  console.log(model.value);
-}
+
 </script>
 <style scoped>
 .ico {

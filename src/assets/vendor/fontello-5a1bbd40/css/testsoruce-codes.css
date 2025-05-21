@@ -14,4 +14,6 @@
 .icon-heart-slash:before { content: '\e80c'; } /* '' */
 .icon-search:before { content: '\e80d'; } /* '' */
 .icon-arrow-down:before { content: '\e80e'; } /* '' */
+.icon-danger:before { content: '\e80f'; } /* '' */
+.icon-add-square:before { content: '\e810'; } /* '' */
 .icon-whatsapp:before { content: '\f232'; } /* '' */

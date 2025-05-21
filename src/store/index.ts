@@ -7,6 +7,7 @@ import { SignedClient } from '@/utils/classes/SignedClient'
 import { UnsignedClient } from '@/utils/classes/UnsignedClient'
 import type { UserInteract } from '@/types/UserInteract'
 import ProxySignedClient from '@/utils/classes/ProxySignedClient'
+import auctions from './modules/auctions'
 
 export const store = createStore({
   state() {
@@ -62,7 +63,7 @@ export const store = createStore({
         client_id = window.Telegram.WebApp.initDataUnsafe.user.id as number
       }
       let client = null
-      
+
       if (!client_id) {
         client = new UnsignedClient()
         await client.init()
@@ -70,14 +71,14 @@ export const store = createStore({
       else {
         const clientData = await getClient(client_id)
         client = new ProxySignedClient(clientData)
-        
+
       }
       context.commit('setClient', client)
     },
     async ADD_FAVORITE(context, data) {
       const client: UserInteract = context.getters.client;
-      if(!client.is_signed()) return
-      
+      if (!client.is_signed()) return
+
       const favorites = client.getFavorites();
       var favToday = favorites.find((el) => el.date === data.date);
 
@@ -120,6 +121,7 @@ export const store = createStore({
   },
   modules: {
     master,
-    filter
+    filter,
+    auctions
   }
 })

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getMasters } from "@/api/masters";
 import DownModal from "@/blocks/DownModal.vue";
-import MasterCard from "@/blocks/MasterCard.vue";
+import MasterCard from "@/blocks/master/MasterCard.vue";
 import MenuHeader from "@/blocks/MenuHeader.vue";
 import RequestBlock from "@/blocks/RequestBlock.vue";
 import type { AbstractFilter } from "@/types/AbstractFilter";
@@ -81,8 +81,8 @@ onMounted(async () => {
   window.addEventListener("scroll", checkPosition);
 });
 onUnmounted(() => {
-  // window.removeEventListener("scroll", checkPosition);
-  // store.dispatch("CLEAR_MASTERS");
+  window.removeEventListener("scroll", checkPosition);
+  store.dispatch("CLEAR_MASTERS");
 });
 </script>
 
@@ -102,5 +102,3 @@ onUnmounted(() => {
     ></RequestBlock>
   </DownModal>
 </template>
-
-<style scoped></style>

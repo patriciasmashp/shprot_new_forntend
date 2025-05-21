@@ -1,5 +1,5 @@
-import type IStrapiData from "./IStrapiData";
+import type { IStrapiData } from "./IStrapiData";
 
-export default interface Style extends IStrapiData{
+export type Style = Partial<IStrapiData> & {
     style_name: string;
 }

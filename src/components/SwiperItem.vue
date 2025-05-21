@@ -23,17 +23,14 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { onMounted } from "vue";
 import { baseUrl } from "@/api/routes";
+import { generateRandomString } from "@/utils/functions";
 
 interface Props {
   id_el: string;
   images: Array<string>;
 }
 
-function generateRandomString(length) {
-  return Math.random()
-    .toString(36)
-    .substring(2, length + 2);
-}
+
 const props = defineProps<Props>();
 onMounted(() => {
   const swiper = new Swiper(`#${props.id_el}`, {

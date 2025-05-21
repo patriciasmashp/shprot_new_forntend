@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import SwiperItem from "@/components/SwiperItem.vue";
-import avatar from "@/assets/images/avatar_placheholder.png";
-import HeartOutline from "@/components/icons/HeartOutline.vue";
-import ButtonItem from "@/components/ButtonItem.vue";
-import IconExport from "@/components/icons/IconExport.vue";
-import HeartFilled from "@/components/icons/HeartFilled.vue";
-import router from "@/router";
-import type { Master } from "@/types/Master";
-import { computed, ref, useTemplateRef } from "vue";
-import type { IStrapiImage } from "@/types/IStrapiResponse";
-import { store } from "@/store";
-import { imageParse } from "@/utils/functions";
-import DownModal from "./DownModal.vue";
-import RequestBlock from "./RequestBlock.vue";
-import type { UserInteract } from "@/types/UserInteract";
 import { MasterInteractor } from "@/utils/classes/MasterInteractor";
+import HeartFilled from "@/components/icons/HeartFilled.vue";
+import HeartOutline from "@/components/icons/HeartOutline.vue";
+import avatar from "@/assets/images/avatar_placheholder.png";
+import type { IStrapiImage } from "@/types/IStrapiResponse";
+import IconExport from "@/components/icons/IconExport.vue";
+import type { UserInteract } from "@/types/UserInteract";
+import ButtonItem from "@/components/ButtonItem.vue";
+import RequestBlock from "@/blocks/RequestBlock.vue";
+import SwiperItem from "@/components/SwiperItem.vue";
+import { imageParse } from "@/utils/functions";
+import DownModal from "@/blocks/DownModal.vue";
+import type { Master } from "@/types/Master";
+import { computed, ref } from "vue";
+import { store } from "@/store";
+import router from "@/router";
 
 interface Props {
   master: Master;
