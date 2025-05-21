@@ -40,6 +40,9 @@ const tabs = ["Аукционы", "Архив"];
 </script>
 
 <style scoped>
+.container{
+  margin-bottom: 100px;
+}
 .icon-add-square {
   font-size: 14px;
 }

@@ -21,8 +21,7 @@
           Узнать стоимость татуировки по эскизу, описанию
         </h4>
         <span class="secondary-text description"
-          >Часто размер и сложность играют ключевую роль в размещении
-          татуировки: детальная портретн</span
+          >Хочешь набить тату, но не знаешь, во сколько это обойдётся?</span
         >
         <span
           class="text-green"
@@ -52,7 +51,7 @@
       <div class="col-9">
         <h4 class="text-white title">Найти мастера под мой бюджет</h4>
         <span class="secondary-text description"
-          >Часто размер и слщении татуировки: детальная портретн
+          >Мечтаешь о крутой тату, но бюджет ограничен?
         </span>
         <span
           class="text-purple"
@@ -62,9 +61,9 @@
         >
       </div>
     </div>
-    <div class="price mt-3 text-center">
+    <div class="price mt-3 text-center" v-if="type == AuctionTypesEnum.priceAuction">
       <span class="secondary-text"> Введите значение в рублях </span>
-      <div v-if="type == AuctionTypesEnum.priceAuction">
+      <div >
         <InputItem
           class="mt-3 price-input text-center"
           :postfix="' ₽'"
@@ -80,13 +79,32 @@
     @close="sketchAuctionDescriptionVisible = false"
     :color="'#0C445BB2'"
   >
-    <span class="text-white">
-      Часто размер и сложность играют ключевую роль в размещении татуировки:
-      детальная портретн Occaecat dolor voluptate irure duis deserunt amet
-      labore. Cillum elit sit voluptate reprehenderit. Commodo ipsum ad magna et
-      consectetur non culpa duis elit esse sit. Culpa dolor amet eiusmod eiusmod
-      ea aliqua sunt proident quis laborum consequat.
-    </span>
+    <div>
+      <span class="text-white">
+        Хочешь набить тату, но не знаешь, во сколько это обойдётся? Загрузи фото
+        или опиши идею – и получи
+        <b>предложения от десятков мастеров с ценами. </b> Никаких догадок,
+        только реальные расценки!</span
+      >
+    </div>
+    <div>
+      <span class="text-white">
+        <b>🔹 Как это работает?</b><br />
+        <ul>
+          <li>
+            Выбери город, укажи место, выбери размер, опиши идею или отправь
+            эскиз либо пример работы
+          </li>
+          <li>Мастера оценивают твою заявку и называют цену</li>
+          <li>
+            Выбираешь лучшее предложение и договариваешься напрямую с мастером о
+            деталях
+          </li>
+        </ul>
+        👉 Больше не нужно писать каждому мастеру отдельно – цены придут к тебе
+        прямо сюда!
+      </span>
+    </div>
   </DownModal>
   <DownModal
     :visible="priceAuctionDescriptionVisible"
@@ -94,11 +112,18 @@
     :color="'#0C445BB2'"
   >
     <span class="text-white">
-      Часто размер и сложность играют ключевую роль в размещении татуировки:
-      детальная портретн Occaecat dolor voluptate irure duis deserunt amet
-      labore. Cillum elit sit voluptate reprehenderit. Commodo ipsum ad magna et
-      consectetur non culpa duis elit esse sit. Culpa dolor amet eiusmod eiusmod
-      ea aliqua sunt proident quis laborum consequat.
+      Мечтаешь о крутой тату, но бюджет ограничен? Укажи сумму, которую готов
+      потратить, и <b>найди профессионала в своей ценовой категории.</b> <br />
+      🔹 Почему это
+      <ul>
+        <li>Фильтруешь мастеров по своим финансовым возможностям</li>
+        <li>Видишь уровень мастеров именно в твоём бюджете</li>
+        <li>
+          Экономия времени – не тратишь его на мастеров, чьи цены тебе не
+          подойдут
+        </li>
+      </ul>
+      👉 Тату мечты – без переплат!
     </span>
   </DownModal>
 </template>
@@ -134,6 +159,7 @@ const setPrice = (amount: Number | String) => {
 const setData = () => {
   auctionBuilder.setType(type.value);
   if (type.value === AuctionTypesEnum.priceAuction && price.value !== 0) {
+    if (!price.value) return;
     auctionBuilder.setPrice(price.value);
   }
   emits("next");

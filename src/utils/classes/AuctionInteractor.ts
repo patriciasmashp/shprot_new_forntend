@@ -27,12 +27,29 @@ export class AuctionBuilder {
     public setFile(file: AuctionData['file']) {
         this.auctionData.file = file;
     }
-    public setCity(city: City) {
-        this.auctionData.city = city.documentId;
+    public setCity(city: string) {
+        this.auctionData.city = city;
     }
     public setSize(size: AuctionData['size']) {
         this.auctionData.size = size;
     }
+
+    public getBodyPart() : AuctionData['bodyPart'] | undefined {
+        return this.auctionData.bodyPart;
+    }
+    public getIdea(): AuctionData['idea'] | undefined {
+        return this.auctionData.idea;
+    }
+    public getCity(): AuctionData['city'] | undefined {
+        return this.auctionData.city;
+    }
+    public getSize(): AuctionData['size'] | undefined {
+        return this.auctionData.size;
+    }
+    public getFile(): AuctionData['file'] | undefined {
+        return this.auctionData.file;
+    }
+
     public build(client: IClient): Auction {
         const auction: any = {
             ...this.auctionData,
@@ -50,7 +67,7 @@ export class AuctionInteractor {
         return new AuctionBuilder();
     }
     public async getActiveAuctions(client: IClient) {
-        
+
     }
 
 

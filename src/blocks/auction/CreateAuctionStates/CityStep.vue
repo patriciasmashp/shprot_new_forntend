@@ -11,7 +11,9 @@ import { ref } from "vue";
 const emit = defineEmits<{ next: [] }>();
 const { auctionBuilder } = defineProps<{ auctionBuilder: AuctionBuilder }>();
 
-const selectedCity = ref<City>();
+const selectedCity = ref<string>();
+
+
 const searchActive = ref(false);
 
 const setData = () => {
@@ -32,7 +34,7 @@ const setData = () => {
   <CitySearch
     @focusin="searchActive = true"
     @focusout="searchActive = false"
-    @select="(city: City) => selectedCity = city"
+    @select="(city: City) => selectedCity = city.documentId"
   />
   <Transition>
     <div v-if="!searchActive">

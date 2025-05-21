@@ -1,5 +1,8 @@
 <template>
-  <div class="date-responces">
+  <div
+    class="date-responces"
+    v-for="(auctions, date) in groupByCreatedAt(auctions)"
+  >
     <div class="text-center secondary-text mb-3 mt-4">
       <span> 14 мая</span>
     </div>
@@ -9,19 +12,26 @@
         <template #title>
           <div class="d-flex justify-content-between w-100 pe-2">
             <div>
-              <span>{{auction.bodyPart}}</span>
+              <span>{{ auction.bodyPart }}</span>
             </div>
             <div>
-              <RoundenBage color="#FFFFFF99"  v-if="auction.masterResponses.length"> {{auction.masterResponses.length}} </RoundenBage>
+              <RoundenBage
+                color="#FFFFFF99"
+                v-if="auction.masterResponses.length"
+              >
+                {{ auction.masterResponses.length }}
+              </RoundenBage>
             </div>
           </div>
         </template>
         <template #content>
-          <div class="description-trigger" @click="showAuctionDescription(auction)">
+          <div
+            class="description-trigger"
+            @click="showAuctionDescription(auction)"
+          >
             <span>Описание аукциона</span>
           </div>
-          <div v-for="response in auction.masterResponses" >
-
+          <div v-for="response in auction.masterResponses">
             <MasterAuction
               v-if="response"
               :response="response"
@@ -32,22 +42,25 @@
       </AccordionItem>
     </AccordionBlock>
   </div>
- 
 
-
-<DownModal :visible="descriptionVisible" :color="'#0C445BB2'" @close="descriptionVisible=false">
- <AuctionDescription v-if="auctionDescription" :auction="auctionDescription"  />
-</DownModal>
+  <DownModal
+    :visible="descriptionVisible"
+    :color="'#0C445BB2'"
+    @close="descriptionVisible = false"
+  >
+    <AuctionDescription
+      v-if="auctionDescription"
+      :auction="auctionDescription"
+    />
+  </DownModal>
 </template>
-
-
 
 <script setup lang="ts">
 import AccordionItem from "@/components/AccordionItem.vue";
 import MasterAuction from "@/components/MasterAuction.vue";
 import AuctionDescription from "./AuctionDescription.vue";
 import AccordionBlock from "@/blocks/AccordionBlock.vue";
-
+import { groupByCreatedAt } from "@/utils/functions";
 import RoundenBage from "@/components/RoundenBage.vue";
 import DownModal from "@/blocks/DownModal.vue";
 import { computed, ref } from "vue";
@@ -67,15 +80,12 @@ const master = computed(() => {
 });
 
 const auctions = computed<Auction[]>(() => {
-  const auctions = store.getters.activeAuctions;
-  
+  const auctions = store.getters.inactiveAuctions;
+
   return auctions;
 });
 
 const descriptionVisible = ref(false);
-
-
-
 </script>
 
 <style scoped>

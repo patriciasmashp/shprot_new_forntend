@@ -4,10 +4,16 @@
     v-bind="{ auctionBuilder }"
     :is="currentState"
     @next="() => pushState()"
+    @to="(state: statuses) => setState(state)"
   />
   <DownModal
     :visible="auctionCreated"
-    @close="() => {auctionCreated = false; router.push({name:'auction'})}"
+    @close="
+      () => {
+        auctionCreated = false;
+        router.push({ name: 'auction' });
+      }
+    "
     :color="'#0C445BB2'"
     :height="'247px'"
   >
@@ -36,7 +42,7 @@
 </template>
 <script setup lang="ts">
 import { computed, ref, type Component } from "vue";
-import { statesComponents, type CreateAuctionResponse } from "@/types/Auction";
+import { statesComponents, statuses, type CreateAuctionResponse } from "@/types/Auction";
 
 import DownModal from "@/blocks/DownModal.vue";
 import { AuctionInteractor } from "@/utils/classes/AuctionInteractor";
@@ -65,6 +71,8 @@ function finish() {
     });
 }
 
+
+
 // Создаём массив состояний
 const stateKeys = Object.values(statesComponents);
 
@@ -72,9 +80,18 @@ const stateKeys = Object.values(statesComponents);
 const currentStateIndex = ref(0);
 
 // Получение текущего состояния
-const currentState = computed(() => {
-  return stateKeys[currentStateIndex.value];
+const currentState = computed({
+  get() {
+    return stateKeys[currentStateIndex.value];
+  },
+  set(value: Component) {
+    currentStateIndex.value = stateKeys.indexOf(value);
+  },
 });
+
+const setState = (state: statuses) => {
+  currentState.value = statesComponents[state];
+};
 // Функция для переключения на следующий компонент
 const pushState = () => {
   if (currentStateIndex.value + 1 > stateKeys.length - 1) {

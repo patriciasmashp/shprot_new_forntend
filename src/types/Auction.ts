@@ -36,6 +36,7 @@ export type AuctionData = {
 export type AuctionResponse = {
     master: Master;
     price?: number;
+    clientChoice: boolean
     data: AuctionData;
 }
 

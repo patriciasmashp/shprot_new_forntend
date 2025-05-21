@@ -1,15 +1,7 @@
 <template>
   <div class="d-flex favorites__element mt-2" v-if="masterData">
-    <div class="col-2 me-2" @click="toMaster">
-      <div class="favorites__element-avatar">
-        <!-- <img
-          :src="imageParse(masterData.profile_image.url)"
-          class="rounded-circle"
-        /> -->
-        <div class="master-avatar-container">
-          <img :src="masterAvatar" class="rounded-circle" />
-        </div>
-      </div>
+    <div class="master-avatar-container col-2 me-2" @click="toMaster">
+      <img :src="masterAvatar" class="rounded-circle" />
     </div>
 
     <div class="col-7" @click="toMaster">

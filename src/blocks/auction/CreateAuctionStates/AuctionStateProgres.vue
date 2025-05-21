@@ -6,8 +6,10 @@ import { statesComponents, statuses } from "@/types/Auction";
 import { LinkedList, Node } from "@/utils/structs/LinkedList";
 
 const props = defineProps<{
-  status: statuses;
+  status: statuses; 
 }>();
+
+const emit = defineEmits<{to: [statuses]}>();
 
 enum stateStatus {
   complite = "complite",
@@ -78,6 +80,7 @@ const statesArray = statesList.traverse();
         v-if="state.checked == stateStatus.complite"
         :color="'#FFFFFF14'"
         class="my-2"
+        @click="emit('to', state.state)"
         ><span class="text-purple"><IconOk /></span
       ></RoundenBage>
 

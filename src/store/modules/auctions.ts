@@ -6,15 +6,18 @@ import Filter from "@/utils/classes/Filter";
 export default {
     state() {
         return {
-            activeAuctions: []
+            activeAuctions: [],
+            inactiveAuctions: []
         }
     },
     mutations: {
         setActiveAuctions(state, auctions: Auction[]) {
             state.activeAuctions = auctions
             console.log(state.activeAuctions);
-
-
+        },
+        setInactiveAuctions(state, auctions: Auction[]) {
+            state.inactiveAuctions = auctions
+  
         }
     },
     actions: {
@@ -30,7 +33,7 @@ export default {
 
             const auctions = await getInactiveAuctions(clientDocumentId)
 
-            context.commit('setActiveAuctions', Object.values(auctions))
+            context.commit('setInactiveAuctions', Object.values(auctions))
         },
         // async CLEAR_FILTER(context) {
         //     context.commit('setFilter', null)

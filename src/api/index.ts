@@ -298,7 +298,7 @@ export async function getInactiveAuctions(clientDocumentId: string) {
             $and: [
                 {
                     finished: {
-                        $eq: false
+                        $eq: true
                     },
                 },
                 {

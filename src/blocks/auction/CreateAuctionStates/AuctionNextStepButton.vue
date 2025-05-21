@@ -25,7 +25,7 @@ const emits = defineEmits<{
 
 <style scoped>
 .button-add__wrapper {
-  position: fixed;
+  /* position: fixed; */
   bottom: 63px;
   width: 100%;
   display: flex;
@@ -33,7 +33,8 @@ const emits = defineEmits<{
   /* width: var(--window-width); */
   background: #000000;
   left: 0;
-  padding: 15px 21px;
+  margin-top: 30px;
+  /* padding: 15px 21px; */
   /* transform: translateX(-18px);*/
 }
 .button-add {
