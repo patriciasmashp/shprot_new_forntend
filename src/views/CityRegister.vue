@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import AuctionStateProgres from "@/blocks/auction/CreateAuctionStates/AuctionStateProgres.vue";
+
 import CitySearch from "@/blocks/CitySearch.vue";
 import ButtonItem from "@/components/ButtonItem.vue";
 import DividerItem from "@/components/DividerItem.vue";
 
 import router from "@/router";
-import { statuses } from "@/types/Auction";
 
-import type City from "@/types/City";
+
+import type {City} from "@/types/City";
 import type { UserInteract } from "@/types/UserInteract";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
@@ -32,7 +32,6 @@ function setClientCity() {
 <template>
   <Transition>
     <nav v-show="!filtersVisible">
-      <AuctionStateProgres :status="statuses.city" />
       <div class="nav-wrapper">
         <div class="d-flex mx-2 justify-content-center align-items-center">
           <h6 class="m-0 text-white">Выберите Город</h6>
