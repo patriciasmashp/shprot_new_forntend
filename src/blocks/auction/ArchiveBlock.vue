@@ -4,7 +4,7 @@
     v-for="(auctions, date) in groupByCreatedAt(auctions)"
   >
     <div class="text-center secondary-text mb-3 mt-4">
-      <span> 14 мая</span>
+      <span> {{date}}</span>
     </div>
 
     <AccordionBlock>
