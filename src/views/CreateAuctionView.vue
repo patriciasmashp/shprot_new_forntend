@@ -19,7 +19,7 @@
     @close="
       () => {
         auctionCreated = false;
-        // router.push({ name: 'auction' });
+        router.push({ name: 'auction' });
       }
     "
     :color="'#0C445BB2'"

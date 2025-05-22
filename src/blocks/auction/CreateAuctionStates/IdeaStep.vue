@@ -35,8 +35,7 @@ const setData = () => {
   <!-- <FIleInput class="mb-2" @change="(file) => (dataFiles = file)" /> -->
     <MultiFileInput  v-model:model-value="dataFiles"/>
   <span class="text-secondary mb-5"
-    >Чем яснее вы сможете объяснить своему татуировщику, какую татуировку вы
-    хотите, тем легче ему будет превратить ваше </span
+    >Пару слов – и мастера уже присылают тебе варианты с ценой! </span
   ><span class="text-purple" @click="descriptionVisible = true"
     >подробнее...</span
   >
