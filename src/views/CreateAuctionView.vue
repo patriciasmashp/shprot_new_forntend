@@ -1,5 +1,13 @@
 <template>
-  <!-- <SizeStep @next="(d) => console.log(d)" /> -->
+  <div class="loading-wrapper" v-if="loading">
+    <div class="loading-blur"></div>
+    <div class="loading">
+      <div class="spinner-grow" style="width: 3rem; height: 3rem" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+
   <component
     v-bind="{ auctionBuilder }"
     :is="currentState"
@@ -11,7 +19,7 @@
     @close="
       () => {
         auctionCreated = false;
-        router.push({ name: 'auction' });
+        // router.push({ name: 'auction' });
       }
     "
     :color="'#0C445BB2'"
@@ -42,7 +50,11 @@
 </template>
 <script setup lang="ts">
 import { computed, ref, type Component } from "vue";
-import { statesComponents, statuses, type CreateAuctionResponse } from "@/types/Auction";
+import {
+  statesComponents,
+  statuses,
+  type CreateAuctionResponse,
+} from "@/types/Auction";
 
 import DownModal from "@/blocks/DownModal.vue";
 import { AuctionInteractor } from "@/utils/classes/AuctionInteractor";
@@ -57,11 +69,13 @@ const auctaionFailed = ref<boolean>(false);
 
 const createError = ref<string>();
 const client = computed<UserInteract>(() => store.getters.client);
-
+const loading = ref<boolean>(false);
 function finish() {
+  loading.value = true;
   client.value
     .createAuction(auctionBuilder)
     .then((response: CreateAuctionResponse) => {
+      loading.value = false;
       if (response.success) {
         auctionCreated.value = true;
       } else {
@@ -70,8 +84,6 @@ function finish() {
       }
     });
 }
-
-
 
 // Создаём массив состояний
 const stateKeys = Object.values(statesComponents);
@@ -101,3 +113,34 @@ const pushState = () => {
   }
 };
 </script>
+
+<style scoped>
+.loading-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  left: 0;
+  top: 0;
+}
+.loading-blur {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  /* filter: blur(0px); */
+  backdrop-filter: blur(10px);
+  z-index: 100;
+}
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+}
+.spinner-grow {
+  background-color: rebeccapurple !important;
+}
+</style>

@@ -30,7 +30,7 @@ export type AuctionData = {
     size: AuctionSizesEnum;
     idea: string;
     price?: number;
-    file?: any;
+    file?: any[];
 }
 
 export type AuctionResponse = {

@@ -22,6 +22,7 @@ export default {
     },
     actions: {
         async FETCH_ACTIVE_AUCTIONS(context) {
+            if (!context.rootState.client.client) return
             const clientDocumentId = context.rootState.client.client.documentId
 
             const auctions = await getActiveAuctions(clientDocumentId)
@@ -29,6 +30,7 @@ export default {
             context.commit('setActiveAuctions', Object.values(auctions))
         },
         async FETCH_INACTIVE_AUCTIONS(context) {
+            if (!context.rootState.client.client) return
             const clientDocumentId = context.rootState.client.client.documentId
 
             const auctions = await getInactiveAuctions(clientDocumentId)

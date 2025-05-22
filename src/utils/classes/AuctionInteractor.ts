@@ -24,8 +24,8 @@ export class AuctionBuilder {
     public setPrice(price: AuctionData['price']) {
         this.auctionData.price = price;
     }
-    public setFile(file: AuctionData['file']) {
-        this.auctionData.file = file;
+    public setFiles(files: AuctionData['file']) {
+        this.auctionData.file = files;
     }
     public setCity(city: string) {
         this.auctionData.city = city;
