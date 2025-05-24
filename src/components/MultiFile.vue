@@ -6,14 +6,17 @@
       :style="{ backgroundImage: `url(${imagePreview(file)})` }"
       :class="{ 'input_wrapper-uploaded': file }"
     >
-      <label for="input__file-input">
+      <label class="image-preview" @click="removeImage(file)">
         <div class="input__open-img-container">
           <OkCircled style="color: #bc2bff" class="fs-3" />
         </div>
       </label>
     </div>
 
-    <div class="input_wrapper" v-if="model.length < filesLimit">
+    <div
+      class="input_wrapper input_wrapper-active"
+      v-if="model.length < filesLimit"
+    >
       <input
         @change="uploadFile"
         type="file"
@@ -32,28 +35,26 @@ import { ref } from "vue";
 import GallaryAdd from "./icons/GallaryAdd.vue";
 import OkCircled from "./icons/OkCircled.vue";
 
-const { mimeType = "image/*", filesLimit = 10 } = defineProps<{ mimeType?: string, filesLimit?: number }>();
+const { mimeType = "image/*", filesLimit = 10 } = defineProps<{
+  mimeType?: string;
+  filesLimit?: number;
+}>();
 const emit = defineEmits(["change"]);
 
-type fileData = {
-  file: File;
-  preview: string;
-};
 const model = defineModel<Array<File>>({ default: [] });
 
-const imagePreview = (file: File) => URL.createObjectURL(file)
+const removeImage = (imgToDel: File) =>{
+  model.value = model.value.filter((img) => img != imgToDel)
+}
+const imagePreview = (file: File) => URL.createObjectURL(file);
 
 function uploadFile(event: Event) {
   const input = event.target as HTMLInputElement;
   if (!input.files) return;
   for (let file of input.files) {
-    if (model.value.length >= filesLimit) return
+    if (model.value.length >= filesLimit) return;
     model.value.push(file);
   }
-  console.log(model.value);
-
-  //   image_preview.value = `url(${URL.createObjectURL(input.files[0])})`;
-  //   emit("change", input.files[0]);
 }
 </script>
 
@@ -82,7 +83,7 @@ img {
 }
 .input_wrapper {
   display: flex;
-  cursor: pointer;
+
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -92,5 +93,13 @@ img {
   background-blend-mode: overlay;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 16px;
+}
+
+.icon-ok-circled{
+  transition: 0.5s;
+}
+.image-preview:hover .icon-ok-circled{
+  color: red !important;
+  transition: 0.5s;
 }
 </style>

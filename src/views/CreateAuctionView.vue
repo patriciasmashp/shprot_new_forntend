@@ -7,7 +7,7 @@
       </div>
     </div>
   </div>
-
+  <IdeaStep :auction-builder="auctionBuilder"/>
   <component
     v-bind="{ auctionBuilder }"
     :is="currentState"
@@ -61,6 +61,7 @@ import { AuctionInteractor } from "@/utils/classes/AuctionInteractor";
 import { useStore } from "vuex";
 import type { UserInteract } from "@/types/UserInteract";
 import router from "@/router";
+import IdeaStep from "@/blocks/auction/CreateAuctionStates/IdeaStep.vue";
 
 const store = useStore();
 const auctionBuilder = AuctionInteractor.getAuctionBuilder();
