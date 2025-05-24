@@ -13,6 +13,6 @@ const layout = computed(() => {
 
 <template>
   <component :is="layout">
-    <RouterView />
+    <RouterView /> 
   </component>
 </template>
