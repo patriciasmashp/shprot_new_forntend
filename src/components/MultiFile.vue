@@ -52,9 +52,10 @@ const imagePreview = (file: File) => URL.createObjectURL(file);
 
 function uploadFile(event: Event) {
   const input = event.target as HTMLInputElement;
+  store.dispatch("DEBUG", {event: event})
   if (!input.files) return;
+  store.dispatch("DEBUG", {mime: input.files})
   for (let file of input.files) {
-    store.dispatch("DEBUG", {mime: file.type})
     if (model.value.length >= filesLimit) return;
     model.value.push(file);
   }
