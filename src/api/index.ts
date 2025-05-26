@@ -319,3 +319,7 @@ export async function getInactiveAuctions(clientDocumentId: string) {
 export async function selectMasterAuction(master: string, auction: string) {
     await axios.post(routes.auctionSentMasterContact, { data: { master: master, auction: auction } })
 }
+
+export async function logFrontendError(error: any) {
+    await axios.post(routes.frontendError, {data: error})
+} 

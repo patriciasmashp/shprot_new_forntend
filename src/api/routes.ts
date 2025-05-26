@@ -15,6 +15,7 @@ export default {
     auctionSentMasterContact: baseUrl + "/api/auctions/notifyMasterSelectedByClient",
     media: baseUrl + "/api/upload",
 
+    frontendError: baseUrl + "/api/admin/frontendError",
     uploadVideoWebApp: baseUrl + "/api/telegram/handleFile",
     getUploadStatus: baseUrl + "/api/telegram/fileUploadStatus",
 
