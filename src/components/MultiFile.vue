@@ -44,7 +44,7 @@ const emit = defineEmits(["change"]);
 const model = defineModel<Array<File>>({ default: [] });
 
 const removeImage = (imgToDel: File) =>{
-  // model.value = model.value.filter((img) => img != imgToDel)
+  model.value = model.value.filter((img) => img != imgToDel)
 }
 const imagePreview = (file: File) => URL.createObjectURL(file);
 
