@@ -19,7 +19,7 @@ export default defineConfig({
     },
   },
   build: {
-    // outDir: process.env.NODE_ENV === 'production' ? '/var/www' : 'dist',
+    outDir: process.env.NODE_ENV === 'production' ? '/var/www' : 'dist',
     emptyOutDir: true
   },
   server: {
