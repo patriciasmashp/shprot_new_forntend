@@ -7,7 +7,7 @@
       </div>
     </div>
   </div>
-  <IdeaStep :auction-builder="auctionBuilder"/>
+
   <component
     v-bind="{ auctionBuilder }"
     :is="currentState"
