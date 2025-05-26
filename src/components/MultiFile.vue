@@ -21,7 +21,6 @@
         @change="uploadFile"
         type="file"
         multiple
-        :accept="mimeType"
         id="input__file-input"
       />
       <label for="input__file-input">
@@ -35,7 +34,7 @@ import { ref } from "vue";
 import GallaryAdd from "./icons/GallaryAdd.vue";
 import OkCircled from "./icons/OkCircled.vue";
 
-const { mimeType = "image/*", filesLimit = 10 } = defineProps<{
+const {  filesLimit = 10 } = defineProps<{
   mimeType?: string;
   filesLimit?: number;
 }>();
