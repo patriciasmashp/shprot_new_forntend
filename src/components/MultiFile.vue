@@ -21,7 +21,7 @@
         @change="uploadFile"
         type="file"
         multiple
-        :accept="mimeType"
+
         id="input__file-input"
       />
       <label for="input__file-input">
