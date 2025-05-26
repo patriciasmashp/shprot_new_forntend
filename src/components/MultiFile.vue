@@ -21,6 +21,7 @@
         @change="uploadFile"
         type="file"
         multiple
+        :accept="mimeType"
         id="input__file-input"
       />
       <label for="input__file-input">
@@ -33,8 +34,10 @@
 import { ref } from "vue";
 import GallaryAdd from "./icons/GallaryAdd.vue";
 import OkCircled from "./icons/OkCircled.vue";
+import { useStore } from "vuex";
 
-const {  filesLimit = 10 } = defineProps<{
+const store = useStore()
+const { mimeType = "image/*", filesLimit = 10 } = defineProps<{
   mimeType?: string;
   filesLimit?: number;
 }>();
@@ -48,7 +51,7 @@ const removeImage = (imgToDel: File) =>{
 const imagePreview = (file: File) => URL.createObjectURL(file);
 
 function uploadFile(event: Event) {
-  
+  store.dispatch("DEBUG", event)
   const input = event.target as HTMLInputElement;
   if (!input.files) return;
   for (let file of input.files) {

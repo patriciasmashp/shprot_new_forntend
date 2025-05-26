@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import { master } from './modules/master'
 import { filter } from './modules/filters'
-import { getCities, getClient, getStyles, updateClient } from '@/api'
+import { getCities, getClient, getStyles, logFrontendError, updateClient } from '@/api'
 import type { Master } from '@/types/Master'
 import { SignedClient } from '@/utils/classes/SignedClient'
 import { UnsignedClient } from '@/utils/classes/UnsignedClient'
@@ -111,6 +111,9 @@ export const store = createStore({
       client.client.favorites_by_date = [];
       context.commit('setClient', client);
       await updateClient(client.client.documentId, client);
+    },
+    async DEBUG(data){
+      await logFrontendError(data)
     }
   },
   getters: {
