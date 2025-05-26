@@ -21,7 +21,7 @@
         @change="uploadFile"
         type="file"
         multiple
-        accept="image/jpeg,image/png,image/webp,.jpg"
+        accept="image/jpeg,image/png,image/webp"
         id="input__file-input"
       />
       <label for="input__file-input">
