@@ -7,7 +7,7 @@ import mkcert from 'vite-plugin-mkcert'
 
 
 let plugins = [vue(), vueDevTools()]
-process.env.NODE_ENV === 'development' ? plugins.push(mkcert()) : {}
+// process.env.NODE_ENV === 'development' ? plugins.push(mkcert()) : {}
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -25,7 +25,8 @@ export default defineConfig({
   server: {
     allowedHosts: true,
     port: 3000,
-    host: "127.0.0.1"
+    host: "192.168.1.100",
+    cors: true
   },
 
 })

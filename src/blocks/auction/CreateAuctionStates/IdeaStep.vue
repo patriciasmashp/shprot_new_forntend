@@ -33,7 +33,7 @@ const setData = () => {
   <TextArea class="mb-3" v-model="ideaText" />
   <h3 class="mb-4 text-white">Прикрепите фото</h3>
   <!-- <FIleInput class="mb-2" @change="(file) => (dataFiles = file)" /> -->
-    <MultiFileInput  v-model:model-value="dataFiles"/>
+    <MultiFileInput  v-model:model-value="dataFiles" :mime-type="'image/jpeg'"/>
   <span class="text-secondary mb-5"
     >Пару слов – и мастера уже присылают тебе варианты с ценой! </span
   ><span class="text-purple" @click="descriptionVisible = true"
