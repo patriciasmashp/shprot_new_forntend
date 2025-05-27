@@ -8,6 +8,7 @@ import AuctionNextStepButton from "@/blocks/auction/CreateAuctionStates/AuctionN
 import type { AuctionBuilder } from "@/utils/classes/AuctionInteractor";
 import DownModal from "@/blocks/DownModal.vue";
 import MultiFileInput from "@/components/MultiFile.vue";
+import FIleInput from "@/components/FIleInput.vue";
 const emits = defineEmits<{ next: []; to: [string] }>();
 const { auctionBuilder } = defineProps<{ auctionBuilder: AuctionBuilder }>();
 const descriptionVisible = ref<boolean>(false);
@@ -32,8 +33,8 @@ const setData = () => {
   <h3 class="mb-4 text-white">Кратко опишите идею тату</h3>
   <TextArea class="mb-3" v-model="ideaText" />
   <h3 class="mb-4 text-white">Прикрепите фото</h3>
-  <!-- <FIleInput class="mb-2" @change="(file) => (dataFiles = file)" /> -->
-    <MultiFileInput  v-model:model-value="dataFiles" :mime-type="'image/jpeg'"/>
+  <FIleInput class="mb-2" @change="(file) => (dataFiles = file)" />
+    <!-- <MultiFileInput  v-model:model-value="dataFiles"/> -->
   <span class="text-secondary mb-5"
     >Пару слов – и мастера уже присылают тебе варианты с ценой! </span
   ><span class="text-purple" @click="descriptionVisible = true"
