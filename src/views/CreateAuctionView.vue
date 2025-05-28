@@ -7,7 +7,6 @@
       </div>
     </div>
   </div>
-
   <component
     v-bind="{ auctionBuilder }"
     :is="currentState"

@@ -9,11 +9,20 @@ import type { AuctionBuilder } from "@/utils/classes/AuctionInteractor";
 import DownModal from "@/blocks/DownModal.vue";
 import MultiFileInput from "@/components/MultiFile.vue";
 import FIleInput from "@/components/FIleInput.vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+
 const emits = defineEmits<{ next: []; to: [string] }>();
 const { auctionBuilder } = defineProps<{ auctionBuilder: AuctionBuilder }>();
 const descriptionVisible = ref<boolean>(false);
 const dataFiles = ref<File[]>([]);
 const ideaText = ref<string | undefined>(auctionBuilder.getIdea());
+
+const setImages = (image: File, index: number) =>{
+dataFiles.value[index] = image
+console.log(dataFiles.value);
+
+}
 
 const setData = () => {
   if (!ideaText.value) return;
@@ -33,8 +42,12 @@ const setData = () => {
   <h3 class="mb-4 text-white">Кратко опишите идею тату</h3>
   <TextArea class="mb-3" v-model="ideaText" />
   <h3 class="mb-4 text-white">Прикрепите фото</h3>
-  <!-- <FIleInput class="mb-2" @change="(file) => (dataFiles = file)" /> -->
-    <MultiFileInput  v-model:model-value="dataFiles"/>
+  <div class="d-flex mb-2">
+
+    <FIleInput class="me-4" @change="(file) => setImages(file, index)" v-for="index in 3" />
+  </div>
+
+  <!-- <MultiFileInput  v-model:model-value="dataFiles"/> -->
   <span class="text-secondary mb-5"
     >Пару слов – и мастера уже присылают тебе варианты с ценой! </span
   ><span class="text-purple" @click="descriptionVisible = true"
