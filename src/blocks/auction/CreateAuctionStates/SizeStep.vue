@@ -13,16 +13,16 @@ const { auctionBuilder } = defineProps<{ auctionBuilder: AuctionBuilder }>();
 
 const smallSizeEl = (document.createElement(
   "div"
-).innerHTML = `<span class="text-white">${AuctionSizesEnum.small}</span><span class="text-purple"> до 10 см</span>`);
+).innerHTML = `<span class="text-white">Маленькая</span><span class="text-purple"> до 10 см</span>`);
 const midlleEl = (document.createElement(
   "div"
-).innerHTML = `<span class="text-white">${AuctionSizesEnum.medium}</span><span class="text-purple"> 10 - 15 см</span>`);
+).innerHTML = `<span class="text-white">Средняя</span><span class="text-purple"> 10 - 15 см</span>`);
 const largeEl = (document.createElement(
   "div"
-).innerHTML = `<span class="text-white">${AuctionSizesEnum.large}</span><span class="text-purple"> 15 - 20 см </span>`);
+).innerHTML = `<span class="text-white">Большая</span><span class="text-purple"> 15 - 20 см </span>`);
 const extraLargeEl = (document.createElement(
   "div"
-).innerHTML = `<span class="text-white">${AuctionSizesEnum.extraLarge}</span><span class="text-purple"> от 20 см</span>`);
+).innerHTML = `<span class="text-white">Большой проект</span><span class="text-purple"> от 20 см</span>`);
 
 const smallSize = {
   item: smallSizeEl,
