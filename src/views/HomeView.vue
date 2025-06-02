@@ -30,14 +30,16 @@ async function checkPosition(e: Event) {
 
   // Низ экрана относительно страницы
   const position = scrolled + screenHeight;
-
+  
   if (position >= threshold) {
     if (metaPages.value.pageCount <= metaPages.value.page) return;
+    
     metaPages.value.page++;
     const strapiData = await getMasters({
       page: metaPages.value.page,
-      city: DEFAULT_CITY_NAME,
+      city: filter.value.cityName,
     });
+    console.log(strapiData);
 
     if (!strapiData.data) return;
 
@@ -63,7 +65,7 @@ watch(
 
 onMounted(async () => {
   let city = undefined;
-  if (!filter.value.isActive || !filter.value.cityName) {
+  if (!filter.value.isActive || !filter.value._cityName) {
     if (client.value.city) {
       city = client.value.city.name;
     } else {

@@ -24,14 +24,14 @@ export default class ProxyFilter extends Filter {
     build() {
         console.log(this._client);
         
-        if (!this.cityName) {
+        if (!this._cityName) {
 
-            this.cityName = DEFAULT_CITY_NAME;
+            this._cityName = DEFAULT_CITY_NAME;
         }
 
         const filter: IFilterData = {
             city: {
-                name: { $eq: this.cityName },
+                name: { $eq: this._cityName },
             },
             styles: {
                 style_name: { $in: this.styleNames },

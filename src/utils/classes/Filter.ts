@@ -18,7 +18,7 @@ export default class Filter extends AbstractFilter {
     }
 
     public isActive: boolean = false;
-    public cityName: string | null = null;
+    protected _cityName: string | null = null;
     public styleNames: string[] = [];
 
 
@@ -30,15 +30,22 @@ export default class Filter extends AbstractFilter {
         return this._filter;
     }
 
+    get cityName(){
+        return this._cityName ? this._cityName : DEFAULT_CITY_NAME
+    }
+
+    set cityName(value){
+        this._cityName = value
+    }
     build() {
-        if (!this.cityName) {
+        if (!this._cityName) {
            
-            this.cityName = DEFAULT_CITY_NAME;
+            this._cityName = DEFAULT_CITY_NAME;
         }
 
         const filter: IFilterData = {
             city: {
-                name: { $eq: this.cityName },
+                name: { $eq: this._cityName },
             },
             styles: {
                 style_name: { $in: this.styleNames },
@@ -50,7 +57,7 @@ export default class Filter extends AbstractFilter {
         return stringify(filter);
     }
     clear() {
-        this.cityName = null;
+        this._cityName = null;
         this.styleNames = [];
         this._filter = null;
         this.isActive = false;

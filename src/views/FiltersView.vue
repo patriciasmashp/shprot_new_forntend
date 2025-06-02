@@ -39,7 +39,7 @@ const client = computed<UserInteract>(() => {
 
 const searchedCities: Ref<Array<string>> = ref([]);
 
-const selectedCity: Ref<string | null> = ref(filter.value.cityName);
+const selectedCity: Ref<string | null> = ref(filter.value._cityName);
 
 const selectedStyles: Ref<Array<string>> = ref(filter.value.styleNames);
 const filtersVisible = ref(true);
@@ -68,7 +68,7 @@ function applyFilter() {
       selectedCity.value = DEFAULT_CITY_NAME;
     }
   } else {
-    filter.value.cityName = selectedCity.value;
+    filter.value._cityName = selectedCity.value;
   }
 
   filter.value.styleNames = selectedStyles.value;

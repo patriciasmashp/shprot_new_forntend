@@ -25,7 +25,7 @@ const filter = computed<AbstractFilter>(() => {
 
 const searchedCities: Ref<Array<string>> = ref([]);
 
-const selectedCity: Ref<string | null> = ref(filter.value.cityName);
+const selectedCity: Ref<string | null> = ref(filter.value._cityName);
 
 const selectedCityEmitter = computed({
   get: () => selectedCity.value,
