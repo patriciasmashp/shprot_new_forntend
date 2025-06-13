@@ -1,5 +1,10 @@
 import { baseUrl } from "@/api/routes";
 import { YM_ID } from "./consts";
+import Swiper from "swiper";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+
 declare const window: any;
 export const imageParse = (url: string) => baseUrl + url;
 
@@ -57,4 +62,24 @@ export function groupByCreatedAt(array: createdAt[]):any {
         acc[date].push(item);
         return acc;
     }, {});
+}
+
+
+export function useSwiper(id_el: string){
+    const swiper = new Swiper(`#${id_el}`, {
+    speed: 400,
+    spaceBetween: 100,
+    modules: [Pagination],
+    hashNavigation: {
+      watchState: true,
+    },
+    pagination: {
+      bulletClass: "swiper-pagination-planc",
+      bulletActiveClass: "swiper-pagination-planc-acitve",
+      clickable: true,
+      enabled: true,
+      el: ".swiper-custom-pagination",
+    },
+  });
+  return swiper
 }
