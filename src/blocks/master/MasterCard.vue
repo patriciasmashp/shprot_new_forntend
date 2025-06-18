@@ -31,6 +31,8 @@ const getImages = computed(() => {
 
 const masterAvatar = computed(() => {
   if (!props.master.profile_image) return avatar;
+  console.log(props.master.profile_image.url);
+  
   if (!props.master.profile_image.url || props.master.profile_image.url == undefined) return avatar;
   return imageParse(props.master.profile_image.url);
 });
@@ -69,6 +71,10 @@ async function aboutMaster(master: Master) {
 
       <div class="d-flex mt-2 pe-3 align-items-center">
         <div class="col-2 text-center me-3 pe-0 avatar-container">
+          <!-- <pre>
+
+            {{ props.master.profile_image }}
+          </pre> -->
           <img
             :src="masterAvatar"
             class="rounded-circle"
@@ -133,6 +139,7 @@ async function aboutMaster(master: Master) {
 .avatar-container img {
   height: 48px;
   width: 100%;
+   object-fit: cover;
 }
 .card {
   background-color: unset;
