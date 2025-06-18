@@ -93,6 +93,7 @@ const masterAvatar = computed(() => {
 .master-avatar-container img {
   height: 50px;
   width: 100%;
+  object-fit: cover;
 }
 .card {
   background-color: unset;

@@ -70,6 +70,7 @@ const masterAvatar = computed(() => {
 .master-avatar-container img {
   height: 40px;
   width: 100%;
+  object-fit: cover;
 }
 
 .favorites__list {

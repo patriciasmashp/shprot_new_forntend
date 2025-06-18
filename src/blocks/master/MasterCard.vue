@@ -31,9 +31,11 @@ const getImages = computed(() => {
 
 const masterAvatar = computed(() => {
   if (!props.master.profile_image) return avatar;
-  console.log(props.master.profile_image.url);
-  
-  if (!props.master.profile_image.url || props.master.profile_image.url == undefined) return avatar;
+  if (
+    !props.master.profile_image.url ||
+    props.master.profile_image.url == undefined
+  )
+    return avatar;
   return imageParse(props.master.profile_image.url);
 });
 const animateHeart = (target: HTMLElement) => {
@@ -55,8 +57,8 @@ async function likeMaster(master: Master, event: PointerEvent) {
 }
 async function aboutMaster(master: Master) {
   router.push({ name: "masterView", params: { id: master.documentId } });
-  const interactor = new MasterInteractor()
-  await interactor.updateStatistic(master, {aboutRequestCount: 1})
+  const interactor = new MasterInteractor();
+  await interactor.updateStatistic(master, { aboutRequestCount: 1 });
 }
 </script>
 
@@ -75,10 +77,7 @@ async function aboutMaster(master: Master) {
 
             {{ props.master.profile_image }}
           </pre> -->
-          <img
-            :src="masterAvatar"
-            class="rounded-circle"
-          />
+          <img :src="masterAvatar" class="rounded-circle" />
         </div>
         <div class="col-9">
           <div>
@@ -99,9 +98,7 @@ async function aboutMaster(master: Master) {
         <div class="card__button">
           <ButtonItem
             font-size="10px"
-            @click="
-              aboutMaster(props.master);
-            "
+            @click="aboutMaster(props.master)"
             :size="'small'"
             >О мастере</ButtonItem
           >
@@ -139,7 +136,7 @@ async function aboutMaster(master: Master) {
 .avatar-container img {
   height: 48px;
   width: 100%;
-   object-fit: cover;
+  object-fit: cover;
 }
 .card {
   background-color: unset;
