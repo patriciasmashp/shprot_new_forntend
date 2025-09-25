@@ -8,6 +8,7 @@ import { logFrontendError } from "./api";
 
 const route = useRoute();
 const layout = computed(() => {
+  
   return route.meta.layout || MobileLayout;
 });
 

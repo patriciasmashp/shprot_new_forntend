@@ -12,6 +12,7 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "@sentry/vue": "^10.14.0",
     "@types/qs": "^6.9.18",
     "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
