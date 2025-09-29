@@ -56,12 +56,14 @@ const tabs = ["Аукционы", "Архив"];
   background: #000000;
   left: 0;
   padding: 15px 21px;
+  z-index: 100;
   /* transform: translateX(-18px);*/
 }
 .button-add {
   min-width: var(--window-width);
   max-width: var(--window-width);
   padding: 0 10px;
+  
   /* transform: translateX(-18px); */
 }
 </style>

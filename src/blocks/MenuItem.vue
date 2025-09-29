@@ -3,10 +3,12 @@ import IconHome from "@/components/icons/IconHome.vue";
 import IconJudge from "@/components//icons/IconJudge.vue";
 import IconUsersearch from "@/components/icons/IconUsersearch.vue";
 import { useRouter } from "vue-router";
+
 const router = useRouter();
 </script>
 
 <template>
+  
   <div class="menu-wrapper">
     <div class="d-flex">
       <div class="menu-item col-4" @click="router.push({ name: 'feed' })">
@@ -53,7 +55,7 @@ const router = useRouter();
           >
         </div>
       </div>
-      <div class="menu-item col-4" @click="router.push({ name: 'auction' })">
+      <div class="menu-item col-4" id="auctionMenuButtom" @click="router.push({ name: 'auction' })">
         <IconJudge
           :class="[
             router.currentRoute.value.name ==
@@ -70,12 +72,13 @@ const router = useRouter();
                 ? 'text-purple'
                 : 'text-secondary',
             ]"
-            >Аукцион</span
+            >Тату</span
           >
         </div>
       </div>
     </div>
   </div>
+  
 </template>
 
 <style scoped>

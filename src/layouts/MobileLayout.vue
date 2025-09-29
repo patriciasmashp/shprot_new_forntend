@@ -5,7 +5,8 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import bannedImage  from "@/assets/images/you-are-banned.svg";
-
+import Guide from "@/components/Guide/Guide.vue";
+import { guideTypes } from "@/components/Guide/types";
 const store = useStore();
 store.dispatch("FETCH_CLIENT");
 const router = useRouter();
@@ -32,6 +33,7 @@ const client = computed(() => {
       </footer>
     </div>
     <div class="main-container" v-else>
+      <Guide />
       <div class="elips__blue"></div>
       <slot></slot>
       <div class="elips__purple"></div>
@@ -40,6 +42,7 @@ const client = computed(() => {
       </footer>
     </div>
   </main>
+  
 </template>
 
 <style scoped>

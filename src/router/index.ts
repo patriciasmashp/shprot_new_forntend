@@ -11,6 +11,8 @@ import CityRegister from '@/views/CityRegister.vue'
 import AuctionResponseView from '@/views/AuctionResponseView.vue'
 import CreateAuctionView from '@/views/CreateAuctionView.vue'
 import PuprpleLayout from '@/layouts/PuprpleLayout.vue'
+import Bordered from '@/components/Guide/Auction.vue'
+import { guideTypes } from '@/components/Guide/types'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 
@@ -23,7 +25,7 @@ const router = createRouter({
         filter: true
       },
 
-      meta: {}
+      meta: {guide: guideTypes.NewAuction}
     },
     {
       path: '/',
@@ -64,7 +66,7 @@ const router = createRouter({
     path: '/auction',
     name: 'auction',
     component: AuctionView,
-    meta: {}
+    meta: {guide: guideTypes.Auction}
   },
   {
     path: '/createAuction',
