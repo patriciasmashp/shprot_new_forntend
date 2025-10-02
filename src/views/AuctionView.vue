@@ -15,7 +15,7 @@
         style="height: 56px; font-size: 12px"
       >
         <div class="d-flex align-items-center">
-          <div class="me-1">Начать новый аукцион</div>
+          <div class="me-1">Новое тату</div>
           <AddSquare />
         </div>
       </ButtonItem>
