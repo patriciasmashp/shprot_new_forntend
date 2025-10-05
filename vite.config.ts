@@ -20,7 +20,8 @@ export default defineConfig({
   },
   build: {
     outDir: process.env.NODE_ENV === 'production' ? '/var/www' : 'dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    sourcemap: true,
   },
   server: {
     allowedHosts: true,
