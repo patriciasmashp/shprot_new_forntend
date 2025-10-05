@@ -8,7 +8,7 @@ import { copyToClipboard, createDeepLink } from "../functions";
 import type { AbstractFilter } from "@/types/AbstractFilter";
 import type { Auction, AuctionData, CreateAuctionResponse } from "@/types/Auction";
 import type { AuctionBuilder } from "./AuctionInteractor";
-
+import {setUser} from "@sentry/browser";
 declare const window: any
 
 export class SignedClient extends UserInteract {
@@ -17,6 +17,7 @@ export class SignedClient extends UserInteract {
     constructor(user: IClient) {
         super();
         this.client = user
+        setUser({id: this.client.documentId})
     }
 
     is_signed(): boolean {
