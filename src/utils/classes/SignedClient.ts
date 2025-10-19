@@ -23,8 +23,8 @@ export class SignedClient extends UserInteract {
     is_signed(): boolean {
         return true
     }
-    async request(master: Master, type: TypeOfRequest, phone: string): Promise<void> {
-        await makeRequest(master, this.client, type, phone)
+    async request(master: Master, type: TypeOfRequest, contact: string): Promise<void> {
+        await makeRequest(master, this.client, type, contact)
     }
 
     getFavorites(): Array<TFavorite> {

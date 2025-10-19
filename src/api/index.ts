@@ -91,7 +91,7 @@ export async function updateClient(documentId: string, client_data: SignedClient
     return resp.data.data[0]
 }
 
-export async function makeRequest(master: Master, client: IClient, type: TypeOfRequest, phone: string): Promise<IRequest> {
+export async function makeRequest(master: Master, client: IClient, type: TypeOfRequest, contact: string): Promise<IRequest> {
     const params = stringify({
         populate: ["master", "client"]
     })
@@ -99,7 +99,7 @@ export async function makeRequest(master: Master, client: IClient, type: TypeOfR
         master: master.documentId,
         client: client.documentId,
         TypeOfRequest: type,
-        phone: phone
+        contact: contact
     }
     const data = {
         data: request

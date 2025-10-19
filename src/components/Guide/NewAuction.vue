@@ -52,8 +52,6 @@ function withinBoundariesClick(e: MouseEvent) {
 }
 
 function emitClose() {
-    console.log('emitClose');
-    
     emit('close');
 }
 </script>

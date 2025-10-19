@@ -23,7 +23,7 @@
   <DownModal :visible="report_visible" @close="report_visible = false">
     <ReportBlock :master="master" @created="afterReport"> </ReportBlock>
   </DownModal>
-  <DownModal :visible="request_visible" @close="request_visible = false">
+  <DownModal :visible="request_visible" @close="request_visible = false" >
     <RequestBlock :master="master" @created="afterREquest"></RequestBlock>
   </DownModal>
 </template>

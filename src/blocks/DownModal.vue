@@ -17,7 +17,6 @@
           transform: `translate(${posX}px, ${posY}px)`,
           zIndex: 9999,
           bottom: 0,
-          minHeight: props.height || undefined,
         }"
       >
         <div
@@ -29,6 +28,7 @@
         </div>
         <div class="elips__purple" :style="{backgroundColor: elipsColor}"></div>
         <div class="down-modal__body mt-4">
+          
           <slot></slot>
         </div>
       </div>
@@ -46,7 +46,7 @@ const posX = ref(0);
 const posY = ref(0);
 const startPos = ref({ y: 0, curentPos: 0 });
 const elipsColor = computed(() => props.color || "#601582a7");
-
+const minHeight = props.height || "428"
 const windowElement = useTemplateRef("down-modal__window");
 watch(
   () => props.visible,
@@ -142,7 +142,7 @@ const onMouseDown = (e: MouseEvent | TouchEvent) => {
 .down-modal__window {
   position: fixed;
   width: 100%;
-  min-height: 428px;
+  min-height: v-bind(minHeight);
   border-radius: 32px 32px 0 0;
   bottom: 48px;
   background-color: #0d0d0d;

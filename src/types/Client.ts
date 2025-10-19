@@ -11,6 +11,7 @@ export type TFavorite = {
 
 export type IClient = IStrapiData & {
     client_id: number;
+    username: string;
     city: City;
     favorites_by_date: Array<TFavorite>;
     auctions: Array<Auction>;

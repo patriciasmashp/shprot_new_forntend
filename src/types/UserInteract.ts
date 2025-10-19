@@ -7,7 +7,7 @@ import type { TypeOfRequest } from "./Request";
 
 export abstract class UserInteract {
     public client?: IClient | undefined
-    abstract request(master: Master, type: TypeOfRequest, phone: string): Promise<void>;
+    abstract request(master: Master, type: TypeOfRequest, contact: string): Promise<void>;
     abstract getFavorites(): Array<TFavorite>;
     abstract report(master: Master, text: string, file: File | null): Promise<void>;
     abstract get city(): City
@@ -22,4 +22,5 @@ export abstract class UserInteract {
     abstract selectMasterAuction(masterDocumentId: string, auctionId: string): Promise<void>
     abstract isBanned(): boolean
 }
+
 

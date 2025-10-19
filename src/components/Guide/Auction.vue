@@ -5,7 +5,7 @@
             Мы бесплатно разошлём твою идею татуировки мастерам, получим от них цены и покажем портфолио готовых к
             работе мастеров
         </div>
-        <div class="guide-border">
+        <div class="guide-border" ref="windowElement" >
             <img :src="closeButton" class="close-button" @click="close" />
             <div id="content">
                 <div class="d-flex user-row align-items-center justify-content-between" v-for="user in users"
@@ -35,12 +35,9 @@ import avatar2 from '@/assets/images/avatar2.png';
 import avatar3 from '@/assets/images/avatar3.png';
 import closeButton from '@/assets/images/guide_close.svg';
 import useLocalStorage from '@/utils/composables/useLocalStograge';
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import type { userStorageDataType } from './types';
 import { userStorageShown } from './data';
-
-
-
 
 const users = [
     { name: 'Анастасия', price: '5 400 ₽', avatar: avatar1 },
@@ -56,6 +53,28 @@ function close() {
    
     emit('close');
 }
+const windowElement = ref<HTMLElement | null>(null);
+function withinBoundariesClick(e: MouseEvent) {
+    console.log('withinBoundariesClick');
+    
+  const div = <HTMLElement>windowElement.value;
+  const withinBoundaries = e.composedPath().includes(div);
+
+  console.log("asds");
+  if (!withinBoundaries) {
+    
+    close();
+  }
+}
+
+onMounted(() => {
+    window.addEventListener('click', withinBoundariesClick);
+    console.log('mounted Auction guide');
+    
+});
+onUnmounted(() => {
+    window.removeEventListener('click', withinBoundariesClick);
+});
 
 const userLocalStorageData = useLocalStorage<userStorageDataType>('guide-shown', userStorageShown);
 
